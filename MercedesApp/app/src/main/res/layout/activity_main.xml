@@ -4,10 +4,6 @@
     android:id="@+id/nav_drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.mercedesapp.MainActivity">
 
     <!--Main Screen-->
@@ -21,7 +17,7 @@
     <!--Navigation Drawer-->
     <LinearLayout
         android:id="@+id/navDrawerPane"
-        android:layout_width="200dp"
+        android:layout_width="300dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="@color/colorWhite"
@@ -31,14 +27,14 @@
         <RelativeLayout
             android:id="@+id/navProfileLayout"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:background="@color/colorBlack">
+            android:layout_height="169dp">
 
             <ImageView
                 android:id="@+id/navProfileImg"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/profileimage" />
+                android:src="@drawable/profileimage"
+                android:adjustViewBounds="true"/>
 
             <TextView
                 android:id="@+id/welcomeTextView"
@@ -68,7 +64,9 @@
             android:id="@+id/navDrawerList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:choiceMode="singleChoice"></ListView>
+            android:choiceMode="singleChoice"
+            android:divider="@null"
+            android:dividerHeight="0dp"></ListView>
 
     </LinearLayout>
 

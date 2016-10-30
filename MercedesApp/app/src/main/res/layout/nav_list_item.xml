@@ -1,26 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="16dp"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/nav_list_icon"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/ic_vector_home" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp">
 
-    <TextView
-        android:id="@+id/nav_list_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/nav_list_icon"
-        android:layout_marginStart="90dp"
-        android:layout_marginTop="8dp"
-        android:text="Home"
-        android:textColor="@color/color_nav_list_item"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        <ImageView
+            android:id="@+id/nav_list_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_vector_home" />
+
+        <TextView
+            android:id="@+id/nav_list_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/nav_list_icon"
+            android:layout_marginStart="90dp"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/color_nav_list_item"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
 
 </RelativeLayout>
