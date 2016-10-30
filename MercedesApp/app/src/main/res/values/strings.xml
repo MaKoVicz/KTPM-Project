@@ -3,4 +3,5 @@
     <string name="Welcome">Welcome,</string>
     <string name="drawer_opened">Drawer Opened</string>
     <string name="drawer_closed">Drawer Closed</string>
+    <string name="introductionImgCaption">Đội ngũ nhân viên Hà Nội.</string>
 </resources>

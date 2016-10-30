@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.example.mercedesapp.R;
 
 public class ContactFragment extends Fragment {
-    TextView addressTextView;
+    private TextView addressTextView;
 
     @Nullable
     @Override
