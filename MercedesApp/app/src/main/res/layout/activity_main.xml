@@ -33,8 +33,8 @@
                 android:id="@+id/navProfileImg"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/profileimage"
-                android:adjustViewBounds="true"/>
+                android:adjustViewBounds="true"
+                android:src="@drawable/profileimage" />
 
             <TextView
                 android:id="@+id/welcomeTextView"

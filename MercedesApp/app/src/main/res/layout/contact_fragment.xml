@@ -17,14 +17,14 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/vietnamstarimg"
-                android:adjustViewBounds="true"/>
+                android:adjustViewBounds="true"
+                android:src="@drawable/vietnamstarimg" />
 
             <TextView
+                android:id="@+id/addressTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:id="@+id/addressTextView"/>
+                android:layout_margin="16dp" />
 
         </LinearLayout>
 

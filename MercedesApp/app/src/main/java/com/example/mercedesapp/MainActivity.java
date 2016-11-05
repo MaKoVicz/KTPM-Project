@@ -1,5 +1,6 @@
 package com.example.mercedesapp;
 
+import android.database.SQLException;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,11 +16,13 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.example.Adapters.NavListAdapter;
+import com.example.DAO.MercedesDB;
 import com.example.DTO.NavItem;
-import com.example.fragments.AboutFragment;
-import com.example.fragments.ContactFragment;
-import com.example.fragments.HomeFragment;
+import com.example.Fragments.AboutFragment;
+import com.example.Fragments.ContactFragment;
+import com.example.Fragments.HomeFragment;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
         setupNavList();
         setupFragmentList();
+        createDatabase();
         setListItemClickListener();
         setupNavDrawerButtonClick();
     }
@@ -97,6 +101,22 @@ public class MainActivity extends AppCompatActivity {
         setTitle(navListItems.get(0).getTitle());
         navList.setItemChecked(0, true);
         drawerLayout.closeDrawer(navDrawerPane);
+    }
+
+    public void createDatabase() {
+        MercedesDB myDbHelper = new MercedesDB(this);
+
+        try {
+            myDbHelper.createDataBase();
+        } catch (IOException ioe) {
+            throw new Error("Unable to create database");
+        }
+
+        try {
+            myDbHelper.openDataBase();
+        } catch (SQLException sqle) {
+            throw sqle;
+        }
     }
 
     public void setListItemClickListener() {
