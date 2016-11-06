@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.example.Adapters.ProductCategoryAdapter;
-import com.example.DAO.MercedesDB;
+import com.example.BUS.ProductCategoryBUS;
 import com.example.DTO.ProductCategory;
 import com.example.mercedesapp.R;
 
@@ -32,9 +32,8 @@ public class HomeFragment extends Fragment {
 
     public void setupCategoryList() {
         productCategories = new ArrayList<ProductCategory>();
-        MercedesDB myDB = new MercedesDB(getActivity());
+        productCategories = new ProductCategoryBUS(getActivity()).getProductCategoryData();
 
-        productCategories = myDB.getProductCategoryData();
         ProductCategoryAdapter productCategoryAdapter =
                 new ProductCategoryAdapter(getActivity(), R.layout.product_category_list_item, productCategories);
         categoryList.setAdapter(productCategoryAdapter);

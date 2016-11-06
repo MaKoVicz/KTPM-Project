@@ -5,8 +5,10 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.AsyncTasks.DownloadImageTask;
 import com.example.DTO.ProductCategory;
 import com.example.mercedesapp.R;
 
@@ -32,7 +34,10 @@ public class ProductCategoryAdapter extends ArrayAdapter<ProductCategory> {
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = View.inflate(context, resLayout, null);
         TextView title = (TextView) view.findViewById(R.id.category_list_title);
+        ImageView categoryImg = (ImageView) view.findViewById(R.id.category_list_img);
         title.setText(productCategories.get(position).getName());
+
+        new DownloadImageTask(categoryImg).execute(productCategories.get(position).getImageURL());
 
         return view;
     }

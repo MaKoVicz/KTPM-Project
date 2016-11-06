@@ -19,7 +19,7 @@ public class MercedesDB extends SQLiteOpenHelper {
 
     //region Initiation
     private static final String DB_PATH = "/data/data/com.example.mercedesapp/databases/";
-    private static final String DB_NAME = "MercedesDB";
+    private static final String DB_NAME = "MercedesDB.db";
     private final Context context;
     private SQLiteDatabase myDB;
     //endregion
@@ -68,7 +68,7 @@ public class MercedesDB extends SQLiteOpenHelper {
 
     public void copyDataBase() throws IOException {
         //Open your local db as the input stream
-        InputStream myInput = context.getAssets().open("MercedesDB.db");
+        InputStream myInput = context.getAssets().open(DB_NAME);
 
         // Path to the just created empty db
         String outFileName = DB_PATH + DB_NAME;
@@ -125,6 +125,7 @@ public class MercedesDB extends SQLiteOpenHelper {
             do {
                 ProductCategory category = new ProductCategory();
                 category.setName(cursor.getString(0));
+                category.setImageURL(cursor.getString(1));
                 categoies.add(category);
             } while (cursor.moveToNext());
         }
