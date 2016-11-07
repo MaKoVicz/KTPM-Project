@@ -7,12 +7,15 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.AsyncTasks.LoadingImageTask;
 import com.example.mercedesapp.R;
 
 public class AboutFragment extends Fragment {
     private TextView introTextView1, introTextView2, introTextView3;
+    private ImageView introImg1, introImg2, introImg3;
 
     @Nullable
     @Override
@@ -21,7 +24,11 @@ public class AboutFragment extends Fragment {
         introTextView1 = (TextView) view.findViewById(R.id.introductionTextView1);
         introTextView2 = (TextView) view.findViewById(R.id.introductionTextView2);
         introTextView3 = (TextView) view.findViewById(R.id.introductionTextView3);
+        introImg1 = (ImageView) view.findViewById(R.id.introductionImg1);
+        introImg2 = (ImageView) view.findViewById(R.id.introductionImg2);
+        introImg3 = (ImageView) view.findViewById(R.id.introductionImg3);
         setTextViewText();
+        setImgSrc();
 
         return view;
     }
@@ -47,5 +54,11 @@ public class AboutFragment extends Fragment {
                 "Mercedes-Benz một cách chặt chẽ nhằm thể hiện đúng thương hiệu và chất lượng đẳng cấp Mercedes-Benz.";
 
         introTextView3.setText(text);
+    }
+
+    public void setImgSrc() {
+        new LoadingImageTask(introImg1).execute(R.drawable.intoduction1);
+        new LoadingImageTask(introImg2).execute(R.drawable.intoduction2);
+        new LoadingImageTask(introImg3).execute(R.drawable.introduction3);
     }
 }

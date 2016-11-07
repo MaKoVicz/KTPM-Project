@@ -16,10 +16,10 @@
             android:textColor="@color/colorBlack" />
 
         <ImageView
+            android:id="@+id/introductionImg1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:src="@drawable/intoduction1" />
+            android:adjustViewBounds="true" />
 
         <TextView
             android:id="@+id/introductionTextView2"
@@ -29,10 +29,10 @@
             android:textColor="@color/colorBlack" />
 
         <ImageView
+            android:id="@+id/introductionImg2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:src="@drawable/intoduction2" />
+            android:adjustViewBounds="true" />
 
         <TextView
             android:id="@+id/introductionTextView3"
@@ -42,10 +42,10 @@
             android:textColor="@color/colorBlack" />
 
         <ImageView
+            android:id="@+id/introductionImg3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:src="@drawable/introduction3" />
+            android:adjustViewBounds="true" />
 
         <TextView
             android:layout_width="match_parent"

@@ -7,18 +7,23 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.AsyncTasks.LoadingImageTask;
 import com.example.mercedesapp.R;
 
 public class ContactFragment extends Fragment {
     private TextView addressTextView;
+    private ImageView contactImg;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.contact_fragment, container, false);
         addressTextView = (TextView) view.findViewById(R.id.addressTextView);
+        contactImg = (ImageView) view.findViewById(R.id.contactImg);
+        new LoadingImageTask(contactImg).execute(R.drawable.vietnamstarimg);
         setTextViewText();
 
         return view;
