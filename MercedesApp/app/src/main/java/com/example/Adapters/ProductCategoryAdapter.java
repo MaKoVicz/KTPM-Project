@@ -10,21 +10,22 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.AsyncTasks.DownloadImageTask;
 import com.example.DTO.ProductCategory;
 import com.example.mercedesapp.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class ProductCategoryAdapter extends ArrayAdapter<ProductCategory> {
 
-    LayoutInflater layoutInflater;
     //region Initiation
+    private LayoutInflater layoutInflater;
     private Context context;
     private int resLayout;
     private List<ProductCategory> productCategories;
     //endregion
 
+    //region Methods
     public ProductCategoryAdapter(Context context, int resLayout, List<ProductCategory> productCategories) {
         super(context, resLayout, productCategories);
         this.context = context;
@@ -68,7 +69,10 @@ public class ProductCategoryAdapter extends ArrayAdapter<ProductCategory> {
         ProductCategory productCategory = productCategories.get(position);
         holder.title.setText(productCategory.getName());
         if (holder.categoryImg != null) {
-            new DownloadImageTask(holder.categoryImg).execute(productCategory.getImageURL());
+            Picasso.with(context)
+                    .load(productCategory.getImageURL())
+                    .placeholder(R.drawable.ic_vector_image_loading)
+                    .into(holder.categoryImg);
         }
 
         return convertView;
@@ -78,4 +82,5 @@ public class ProductCategoryAdapter extends ArrayAdapter<ProductCategory> {
         TextView title;
         ImageView categoryImg;
     }
+    //endregion
 }

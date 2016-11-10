@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.AsyncTasks.LoadingImageTask;
 import com.example.mercedesapp.R;
+import com.squareup.picasso.Picasso;
 
 public class ContactFragment extends Fragment {
     private TextView addressTextView;
@@ -23,7 +24,7 @@ public class ContactFragment extends Fragment {
         View view = inflater.inflate(R.layout.contact_fragment, container, false);
         addressTextView = (TextView) view.findViewById(R.id.addressTextView);
         contactImg = (ImageView) view.findViewById(R.id.contactImg);
-        new LoadingImageTask(contactImg).execute(R.drawable.vietnamstarimg);
+        setContactIntroImg();
         setTextViewText();
 
         return view;
@@ -45,5 +46,12 @@ public class ContactFragment extends Fragment {
                 "<font color=black><b>Hotline P.KD : 0933 93 63 63<b><font>";
 
         addressTextView.setText(Html.fromHtml(address));
+    }
+
+    public void setContactIntroImg() {
+        Picasso.with(getActivity())
+                .load("https://drive.google.com/uc?export=download&id=0B_kv1Bk5yRXdY3pjQ3Zsc1lIbHc")
+                .placeholder(R.drawable.ic_vector_image_loading)
+                .into(contactImg);
     }
 }

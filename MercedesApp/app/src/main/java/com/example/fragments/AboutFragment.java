@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.AsyncTasks.LoadingImageTask;
 import com.example.mercedesapp.R;
+import com.squareup.picasso.Picasso;
 
 public class AboutFragment extends Fragment {
     private TextView introTextView1, introTextView2, introTextView3;
@@ -57,8 +58,19 @@ public class AboutFragment extends Fragment {
     }
 
     public void setImgSrc() {
-        new LoadingImageTask(introImg1).execute(R.drawable.intoduction1);
-        new LoadingImageTask(introImg2).execute(R.drawable.intoduction2);
-        new LoadingImageTask(introImg3).execute(R.drawable.introduction3);
+        Picasso.with(getActivity())
+                .load("https://drive.google.com/uc?export=download&id=0B_kv1Bk5yRXdcno1SmtOX01pakU")
+                .placeholder(R.drawable.ic_vector_image_loading)
+                .into(introImg1);
+
+        Picasso.with(getActivity())
+                .load("https://drive.google.com/uc?export=download&id=0B_kv1Bk5yRXdbFlYR3lQTWNtTzA")
+                .placeholder(R.drawable.ic_vector_image_loading)
+                .into(introImg2);
+
+        Picasso.with(getActivity())
+                .load("https://drive.google.com/uc?export=download&id=0B_kv1Bk5yRXdMzJKcDJCb1RHZ1k")
+                .placeholder(R.drawable.ic_vector_image_loading)
+                .into(introImg3);
     }
 }

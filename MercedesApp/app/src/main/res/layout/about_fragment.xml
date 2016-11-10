@@ -19,6 +19,7 @@
             android:id="@+id/introductionImg1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/color_img_loading"
             android:adjustViewBounds="true" />
 
         <TextView
@@ -32,6 +33,7 @@
             android:id="@+id/introductionImg2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/color_img_loading"
             android:adjustViewBounds="true" />
 
         <TextView
@@ -45,6 +47,7 @@
             android:id="@+id/introductionImg3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/color_img_loading"
             android:adjustViewBounds="true" />
 
         <TextView

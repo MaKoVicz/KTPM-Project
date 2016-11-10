@@ -7,4 +7,5 @@
     <color name="colorBlackTransparent">#50000000</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="color_nav_list_item">#616161</color>
+    <color name="color_img_loading">#757575</color>
 </resources>

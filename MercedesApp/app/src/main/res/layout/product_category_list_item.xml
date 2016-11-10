@@ -6,9 +6,9 @@
     <ImageView
         android:id="@+id/category_list_img"
         android:layout_width="match_parent"
-        android:layout_height="288dp"
+        android:layout_height="wrap_content"
         android:adjustViewBounds="true"
-        android:background="#757575"
+        android:background="@color/color_img_loading"
         android:src="@drawable/ic_vector_image_loading" />
 
     <RelativeLayout
