@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.AsyncTasks.LoadingImageTask;
 import com.example.mercedesapp.R;
 import com.squareup.picasso.Picasso;
 

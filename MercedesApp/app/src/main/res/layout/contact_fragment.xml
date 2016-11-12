@@ -18,8 +18,8 @@
                 android:id="@+id/contactImg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/color_img_loading"
-                android:adjustViewBounds="true" />
+                android:adjustViewBounds="true"
+                android:background="@color/color_img_loading" />
 
             <TextView
                 android:id="@+id/addressTextView"
