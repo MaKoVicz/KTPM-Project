@@ -162,5 +162,31 @@ public class MercedesDB extends SQLiteOpenHelper {
 
         return products;
     }
+
+    public Product getProductDetailInformation(String name) {
+        name = "'" + name + "'";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        String SqlCmd = "SELECT * FROM Product WHERE Name = " + name;
+        Cursor cursor = db.rawQuery(SqlCmd, null);
+        Product product = new Product();
+
+        if (cursor.moveToFirst()) {
+            do {
+                product.setName(cursor.getString(0));
+                product.setColor(cursor.getString(1));
+                product.setPrice(cursor.getDouble(2));
+                product.setCategory(cursor.getString(3));
+                product.setDescription(cursor.getString(4));
+                product.setPic1(cursor.getString(5));
+                product.setPic2(cursor.getString(6));
+                product.setPic3(cursor.getString(7));
+                product.setPic4(cursor.getString(8));
+                product.setPic5(cursor.getString(9));
+            } while (cursor.moveToNext());
+        }
+
+        return product;
+    }
     //endregion
 }

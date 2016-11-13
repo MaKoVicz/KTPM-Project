@@ -10,4 +10,5 @@
     <color name="color_nav_list_item">#616161</color>
     <color name="color_img_loading">#757575</color>
     <color name="color_layout_background">#E0E0E0</color>
+    <color name="test_drive_register_btn">#03A9F4</color>
 </resources>
