@@ -5,9 +5,15 @@
     <string name="drawer_closed">Drawer Closed</string>
     <string name="introductionImgCaption">Đội ngũ nhân viên Hà Nội.</string>
     <string name="test_drive_register_btn">ĐĂNG KÝ LÁI THỬ</string>
-    <string name="description">Trong thời gian gần đây, sự phát triển mạnh mẽ của Mercedes-Benz đang là chủ đề được rất nhiều người quan tâm. Hãng xe hạng sang danh tiếng này đã trở lại một cách đầy mạnh mẽ với mục tiêu trở lại vị trí số một trong số các hãng xe sang, với sự ra mắt của những mẫu xe mới như CLA-Class, Mercedes-AMG GT. Nhưng đáng kể nhất phải kể đến sự xuất hiện của chiếc C-Class thế hệ mới, chiếc xe nằm ở phân khúc sedan hạng sang cỡ nhỏ, phân khúc quan trọng nhất với Mercedes-Benz.\n
-        Chiếc C-Class mới lớn hơn so với người tiền nhiệm ở cả kích thước tổng thể và nội thất, ngoài ra chiếc xe còn có những trang bị vô cùng hiện đại, hệ thống giải trí cao cấp, trang bị an toàn tối tân. Một số trang bị trên C-Class trước đây thường chỉ được trang bị cho dòng xe S-Class. Đó là lý do mà chiếc C-Class mới có giá bán cao hơn so với phiên bản cũ. Tại Mỹ, chiếc C300 có giá cơ bản từ 39.325 USD, trong khi đó chiếc C300 4MATIC với hệ truyền động bốn bánh có giá từ 41.325 USD.\n
-        Mercedes-Benz C300 được trang bị động cơ 2.0 lít - bốn xi-lanh, với công suất tối đa 245 mã lực, momen xoắn cực đại 370 Nm - tại 1.300-4.000 vòng/phút. Sức mạnh này mang tới cho Mercedes-Benz C300 một hiệu suất đáng nể. Chiếc xe mất 5,8 giây để tăng tốc từ 0-96 km/h, quãng đường khoảng 54 mét để phanh chết từ tốc độ 112,5 km/h. Bạn sẽ cảm thấy yêu thích và yên tâm khi ngồi sau vô-lăng của Mercedes-Benz C300.\n
-        Chiếc xe được trang bị hệ thống lái trợ lực được đánh giá tốt hơn trên chiếc BMW 3-Series, hệ thống lái trợ lực này được "vay mượn" từ chiếc S-Class mới, đây là nỗ lực thực sự của Mercedes-Benz nhằm giúp C-Class có thể thành công.\n
-        C-Class được xây dựng trên một nền tảng khung gầm mới tốt hơn, nhẹ hơn, kết hợp với hệ thống treo đã được các kỹ sư phát triển rất tốt, nhờ đó mà chiếc xe vận hành rất tuyệt vời. Việc lái xe trở nên dễ dàng hơn, ngay cả khi chiếc xe đi vào những khúc cua hẹp ở tốc độ cao. Chiếc xe vận hành rất nhanh nhẹn, hệ thống treo điều chỉnh tự động hoạt động rất chính xác, hệ thống truyền động vận hành chính xác. Dù chiếc xe được trang bị tính năng Stop/Start, nhưng bạn hoàn toàn có thể loại bỏ tính năng này để chiếc xe vận hành với hiệu suất cao hơn, tất nhiên là khi đó chiếc xe có thể tiêu tốn nhiền nhiên liệu hơn.</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="retype_password">Retype Password</string>
+    <string name="guess_name">Your Name</string>
+    <string name="phone">Phone Number</string>
+    <string name="email">Email</string>
+    <string name="dob">Date of Birth</string>
+    <string name="login_button">LOGIN</string>
+    <string name="signup_button">SIGN UP</string>
+    <string name="signup_link">No account yet? Create one</string>
+    <string name="login_link">Already a member? Login</string>
 </resources>
