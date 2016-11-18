@@ -38,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
         ButterKnife.inject(this);
 
         onLoginButtonClick();
+        onSignUpTextViewClick();
     }
 
     public void onLoginButtonClick() {
@@ -45,6 +46,16 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 login();
+            }
+        });
+    }
+
+    public void onSignUpTextViewClick() {
+        signupLinkTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
+                startActivity(intent);
             }
         });
     }
