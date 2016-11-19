@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.DTO.Product;
 import com.example.DTO.ProductCategory;
+import com.example.DTO.User;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -130,6 +131,7 @@ public class MercedesDB extends SQLiteOpenHelper {
                 categoies.add(category);
             } while (cursor.moveToNext());
         }
+        cursor.close();
 
         return categoies;
     }
@@ -159,6 +161,7 @@ public class MercedesDB extends SQLiteOpenHelper {
                 products.add(product);
             } while (cursor.moveToNext());
         }
+        cursor.close();
 
         return products;
     }
@@ -185,8 +188,51 @@ public class MercedesDB extends SQLiteOpenHelper {
                 product.setPic5(cursor.getString(9));
             } while (cursor.moveToNext());
         }
+        cursor.close();
 
         return product;
+    }
+
+    public boolean addUserData(User user) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        boolean result = true;
+        String username, password, name, dob, email, phone;
+        int admin;
+
+        username = "'" + user.getUsername() + "'";
+        password = "'" + user.getPassword() + "'";
+        name = "'" + user.getName() + "'";
+        dob = "'" + user.getDob() + "'";
+        email = "'" + user.getEmail() + "'";
+        phone = "'" + user.getPhone() + "'";
+        admin = 0;
+
+        String sqlCmd = "INSERT INTO User VALUES(" + username
+                + "," + password + "," + name + "," + dob
+                + "," + phone + "," + email + "," + admin + ")";
+
+        try {
+            db.execSQL(sqlCmd);
+        } catch (Exception ex) {
+            result = false;
+        }
+
+        return result;
+    }
+
+    public int getUserDataForLoginCheck(String username, String password) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        username = "'" + username + "'";
+        password = "'" + password + "'";
+
+        String SqlCmd = "SELECT * FROM User WHERE Username = " + username
+                + " AND Password = " + password;
+        Cursor cursor = db.rawQuery(SqlCmd, null);
+        int rowCount = cursor.getCount();
+        cursor.close();
+
+        return rowCount; //Number of rows in the cursor
     }
     //endregion
 }

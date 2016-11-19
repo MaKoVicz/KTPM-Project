@@ -1,16 +1,23 @@
 package com.example.mercedesapp;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.SQLException;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.example.BUS.UserBUS;
+import com.example.DAO.MercedesDB;
+
+import java.io.IOException;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -37,6 +44,7 @@ public class LoginActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         ButterKnife.inject(this);
 
+        createDatabase();
         onLoginButtonClick();
         onSignUpTextViewClick();
     }
@@ -64,6 +72,10 @@ public class LoginActivity extends AppCompatActivity {
         Log.d(TAG, "LoginActivity");
 
         if (!isValidate()) {
+            return;
+        }
+
+        if (!checkAccount()) {
             onLoginFail();
             return;
         }
@@ -93,7 +105,16 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void onLoginFail() {
-        Toast.makeText(this, "Login failed", Toast.LENGTH_SHORT).show();
+        new AlertDialog.Builder(this, R.style.AppTheme_Light_Diaglog).setTitle("Message")
+                .setMessage("Incorrect username or password")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).setCancelable(false)
+                .setIcon(R.drawable.ic_vector_message).show();
+
         btnLogin.setEnabled(true);
     }
 
@@ -109,13 +130,34 @@ public class LoginActivity extends AppCompatActivity {
             usernameEditText.setError(null);
         }
 
-        if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
-            passwordEditText.setError("Password must be between 4 and 10 alphanumeric characters");
+        if (password.isEmpty()) {
+            passwordEditText.setError("Please enter a valid Password");
             valid = false;
         } else {
             passwordEditText.setError(null);
         }
 
         return valid;
+    }
+
+    public boolean checkAccount() {
+        return new UserBUS(this)
+                .checkLogin(usernameEditText.getText().toString(), passwordEditText.getText().toString());
+    }
+
+    public void createDatabase() {
+        MercedesDB myDbHelper = new MercedesDB(this);
+
+        try {
+            myDbHelper.createDataBase();
+        } catch (IOException ioe) {
+            throw new Error("Unable to create database");
+        }
+
+        try {
+            myDbHelper.openDataBase();
+        } catch (SQLException sqle) {
+            throw sqle;
+        }
     }
 }

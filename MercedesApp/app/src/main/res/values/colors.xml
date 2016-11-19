@@ -13,4 +13,5 @@
     <color name="test_drive_register_btn">#03A9F4</color>
     <color name="color_login_background">#607D8B</color>
     <color name="login_button">#546E7A</color>
+    <color name="color_message_icon">#9E9E9E</color>
 </resources>

@@ -1,16 +1,20 @@
 package com.example.mercedesapp;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.example.BUS.UserBUS;
+import com.example.DTO.User;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -19,6 +23,7 @@ public class SignupActivity extends AppCompatActivity {
 
     //region Initiation
     private static final String TAG = "SignupActivity";
+    User user;
 
     @InjectView(R.id.signup_userNameTextView)
     EditText usernameTextView;
@@ -71,6 +76,10 @@ public class SignupActivity extends AppCompatActivity {
         Log.d(TAG, "Signup");
 
         if (!isValidate()) {
+            return;
+        }
+
+        if (!checkSignup()) {
             onSignupFailed();
             return;
         }
@@ -88,7 +97,8 @@ public class SignupActivity extends AppCompatActivity {
             public void run() {
                 progressDialog.dismiss();
                 onSignupSuccess();
-            }}, 3000);
+            }
+        }, 3000);
     }
 
     public void onSignupSuccess() {
@@ -97,8 +107,17 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     public void onSignupFailed() {
+        new AlertDialog.Builder(this, R.style.AppTheme_Light_Diaglog).setTitle("Message")
+                .setMessage("Username already exists")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).setCancelable(false)
+                .setIcon(R.drawable.ic_vector_message).show();
+
         btnSignup.setEnabled(true);
-        Toast.makeText(this, "Sign up failed", Toast.LENGTH_SHORT).show();
     }
 
     public boolean isValidate() {
@@ -112,14 +131,14 @@ public class SignupActivity extends AppCompatActivity {
         String guessName = guessNameTextView.getText().toString();
 
         if (username.isEmpty() || username.length() < 6) {
-            usernameTextView.setError("at least 3 characters");
+            usernameTextView.setError("Username must be at least 6 characters");
             valid = false;
         } else {
             usernameTextView.setError(null);
         }
 
-        if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
-            passwordTextView.setError("between 4 and 10 alphanumeric characters");
+        if (password.isEmpty() || password.length() < 6) {
+            passwordTextView.setError("Password must be at least 6 characters");
             valid = false;
         } else {
             passwordTextView.setError(null);
@@ -133,7 +152,7 @@ public class SignupActivity extends AppCompatActivity {
         }
 
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            emailTextView.setError("enter a valid email address");
+            emailTextView.setError("Please enter a valid email address");
             valid = false;
         } else {
             emailTextView.setError(null);
@@ -160,5 +179,16 @@ public class SignupActivity extends AppCompatActivity {
         Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+    }
+
+    public boolean checkSignup() {
+        user = new User();
+        user.setUsername(usernameTextView.getText().toString());
+        user.setPassword(passwordTextView.getText().toString());
+        user.setName(guessNameTextView.getText().toString());
+        user.setEmail(emailTextView.getText().toString());
+        user.setPhone(phoneTextView.getText().toString());
+        user.setDob(dobTextView.getText().toString());
+        return new UserBUS(this).addUserData(user);
     }
 }
