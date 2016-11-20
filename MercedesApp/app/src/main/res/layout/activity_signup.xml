@@ -116,6 +116,23 @@
             android:textColorHint="#EEEEEE">
 
             <EditText
+                android:id="@+id/signup_addressTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/address"
+                android:inputType="textCapWords"
+                android:textColor="@color/colorWhite" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:textColorHint="#EEEEEE">
+
+            <EditText
                 android:id="@+id/signup_phoneTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -7,6 +7,7 @@ public class User {
     private String dob;
     private String email;
     private String phone;
+    private String address;
     private int admin;
 
 
@@ -64,5 +65,13 @@ public class User {
 
     public void setAdmin(int admin) {
         this.admin = admin;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

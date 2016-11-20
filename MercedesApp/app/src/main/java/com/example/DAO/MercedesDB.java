@@ -196,7 +196,7 @@ public class MercedesDB extends SQLiteOpenHelper {
     public boolean addUserData(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
         boolean result = true;
-        String username, password, name, dob, email, phone;
+        String username, password, name, dob, email, phone, address;
         int admin;
 
         username = "'" + user.getUsername() + "'";
@@ -205,11 +205,12 @@ public class MercedesDB extends SQLiteOpenHelper {
         dob = "'" + user.getDob() + "'";
         email = "'" + user.getEmail() + "'";
         phone = "'" + user.getPhone() + "'";
+        address = "'" + user.getAddress() + "'";
         admin = 0;
 
         String sqlCmd = "INSERT INTO User VALUES(" + username
                 + "," + password + "," + name + "," + dob
-                + "," + phone + "," + email + "," + admin + ")";
+                + "," + phone + "," + address + "," + email + "," + admin + ")";
 
         try {
             db.execSQL(sqlCmd);
@@ -218,6 +219,19 @@ public class MercedesDB extends SQLiteOpenHelper {
         }
 
         return result;
+    }
+
+    public int getUserEmailForSignUpCheck(String email) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        email = "'" + email + "'";
+
+        String SqlCmd = "SELECT * FROM User WHERE Email = " + email;
+        Cursor cursor = db.rawQuery(SqlCmd, null);
+        int rowCount = cursor.getCount();
+        cursor.close();
+
+        return rowCount; //Number of rows in the cursor
     }
 
     public int getUserDataForLoginCheck(String username, String password) {
