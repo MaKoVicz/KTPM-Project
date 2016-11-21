@@ -1,5 +1,6 @@
 package com.example.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,12 +11,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.mercedesapp.MapActivity;
 import com.example.mercedesapp.R;
 import com.squareup.picasso.Picasso;
 
 public class ContactFragment extends Fragment {
     private TextView addressTextView;
-    private ImageView contactImg;
+    private ImageView contactImg, hanoiAddressImg, hcmAddressImg;
 
     @Nullable
     @Override
@@ -23,8 +25,12 @@ public class ContactFragment extends Fragment {
         View view = inflater.inflate(R.layout.contact_fragment, container, false);
         addressTextView = (TextView) view.findViewById(R.id.addressTextView);
         contactImg = (ImageView) view.findViewById(R.id.contactImg);
+        hanoiAddressImg = (ImageView) view.findViewById(R.id.hanoiAddressImg);
+        hcmAddressImg = (ImageView) view.findViewById(R.id.hcmAddressImg);
+
         setContactIntroImg();
         setTextViewText();
+        setAddressImgClickListener();
 
         return view;
     }
@@ -52,5 +58,37 @@ public class ContactFragment extends Fragment {
                 .load("https://drive.google.com/uc?export=download&id=0B_kv1Bk5yRXdY3pjQ3Zsc1lIbHc")
                 .placeholder(R.drawable.ic_vector_image_loading)
                 .into(contactImg);
+
+        Picasso.with(getActivity())
+                .load("https://drive.google.com/uc?export=download&id=0B_kv1Bk5yRXdLVBZOWVEY3VzMTA")
+                .placeholder(R.drawable.ic_vector_image_loading)
+                .into(hanoiAddressImg);
+
+        Picasso.with(getActivity())
+                .load("https://drive.google.com/uc?export=download&id=0B_kv1Bk5yRXdOWkxSjZaLXBfdE0")
+                .placeholder(R.drawable.ic_vector_image_loading)
+                .into(hcmAddressImg);
+    }
+
+    public void goToMapActivity() {
+        Intent intent = new Intent(getActivity(), MapActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
+
+    public void setAddressImgClickListener() {
+        hanoiAddressImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToMapActivity();
+            }
+        });
+
+        hcmAddressImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToMapActivity();
+            }
+        });
     }
 }

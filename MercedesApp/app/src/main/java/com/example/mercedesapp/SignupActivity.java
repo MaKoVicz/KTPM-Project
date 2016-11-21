@@ -28,8 +28,8 @@ import butterknife.InjectView;
 
 public class SignupActivity extends AppCompatActivity {
 
-    private static final String TAG = "SignupActivity";
     //region Initiation
+    private static final String TAG = "SignupActivity";
     private final Calendar myCalendar = Calendar.getInstance();
     User user;
 
