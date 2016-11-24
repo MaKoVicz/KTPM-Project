@@ -71,6 +71,12 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
     //endregion
 
     //region Personal Method

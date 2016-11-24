@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.example.BUS.UserBUS;
 import com.example.DAO.MercedesDB;
+import com.example.DTO.CurrentLoginUser;
 
 import java.io.IOException;
 
@@ -79,6 +80,9 @@ public class LoginActivity extends AppCompatActivity {
             onLoginFail();
             return;
         }
+
+        CurrentLoginUser.currentUser =
+                new UserBUS(this).getUserData(usernameEditText.getText().toString());
 
         btnLogin.setEnabled(false);
         final ProgressDialog progressDiaglog = new ProgressDialog(this, R.style.AppTheme_Dark_Dialog);

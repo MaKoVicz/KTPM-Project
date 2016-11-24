@@ -61,4 +61,8 @@ public class UserBUS {
             return "";
         }
     }
+
+    public User getUserData(String username) {
+        return new MercedesDB(context).getUserData(username);
+    }
 }

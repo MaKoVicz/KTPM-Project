@@ -50,6 +50,12 @@ public class ProductListActivity extends AppCompatActivity {
 
         return false;
     }
+
+    @Override
+    public void onBackPressed() {
+        returnToMain();
+    }
+
     //endregion
 
     //region Personal Methods

@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.DTO.Product;
 import com.example.DTO.ProductCategory;
+import com.example.DTO.TestDrive;
 import com.example.DTO.User;
 
 import java.io.FileOutputStream;
@@ -193,6 +194,59 @@ public class MercedesDB extends SQLiteOpenHelper {
         return product;
     }
 
+    public int getUserEmailForSignUpCheck(String email) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        email = "'" + email + "'";
+
+        String SqlCmd = "SELECT * FROM User WHERE Email = " + email;
+        Cursor cursor = db.rawQuery(SqlCmd, null);
+        int rowCount = cursor.getCount();
+        cursor.close();
+
+        return rowCount; //Number of rows in the cursor
+    }
+
+    public int getUserDataForLoginCheck(String username, String password) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        username = "'" + username + "'";
+        password = "'" + password + "'";
+
+        String SqlCmd = "SELECT * FROM User WHERE Username = " + username
+                + " AND Password = " + password;
+        Cursor cursor = db.rawQuery(SqlCmd, null);
+        int rowCount = cursor.getCount();
+        cursor.close();
+
+        return rowCount; //Number of rows in the cursor
+    }
+
+    public User getUserData(String username) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        username = "'" + username.toLowerCase() + "'";
+
+        String SqlCmd = "SELECT * FROM User WHERE Username = " + username;
+        Cursor cursor = db.rawQuery(SqlCmd, null);
+        User user = new User();
+
+        if (cursor.moveToFirst()) {
+            do {
+                user.setUsername(cursor.getString(0));
+                user.setPassword(cursor.getString(1));
+                user.setName(cursor.getString(2));
+                user.setDob(cursor.getString(3));
+                user.setAddress(cursor.getString(4));
+                user.setPhone(cursor.getString(5));
+                user.setEmail(cursor.getString(6));
+                user.setAdmin(cursor.getInt(7));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return user;
+    }
+
     public boolean addUserData(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
         boolean result = true;
@@ -221,32 +275,29 @@ public class MercedesDB extends SQLiteOpenHelper {
         return result;
     }
 
-    public int getUserEmailForSignUpCheck(String email) {
+    public boolean addTestDriveRegisterData(TestDrive testDriveData) {
         SQLiteDatabase db = this.getWritableDatabase();
+        boolean result = true;
+        String name, address, phone, email, registerDate, testProduct;
 
-        email = "'" + email + "'";
+        name = "'" + testDriveData.getName() + "'";
+        address = "'" + testDriveData.getAddress() + "'";
+        phone = "'" + testDriveData.getPhone() + "'";
+        email = "'" + testDriveData.getEmail() + "'";
+        registerDate = "'" + testDriveData.getRegisterDate() + "'";
+        testProduct = "'" + testDriveData.getTestProduct() + "'";
 
-        String SqlCmd = "SELECT * FROM User WHERE Email = " + email;
-        Cursor cursor = db.rawQuery(SqlCmd, null);
-        int rowCount = cursor.getCount();
-        cursor.close();
+        String sqlCmd = "INSERT INTO TestDrive VALUES(" + name
+                + "," + address + "," + phone
+                + "," + email + "," + registerDate + "," + testProduct + ")";
 
-        return rowCount; //Number of rows in the cursor
-    }
+        try {
+            db.execSQL(sqlCmd);
+        } catch (Exception ex) {
+            result = false;
+        }
 
-    public int getUserDataForLoginCheck(String username, String password) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        username = "'" + username + "'";
-        password = "'" + password + "'";
-
-        String SqlCmd = "SELECT * FROM User WHERE Username = " + username
-                + " AND Password = " + password;
-        Cursor cursor = db.rawQuery(SqlCmd, null);
-        int rowCount = cursor.getCount();
-        cursor.close();
-
-        return rowCount; //Number of rows in the cursor
+        return result;
     }
     //endregion
 }

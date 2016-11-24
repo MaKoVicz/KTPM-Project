@@ -68,6 +68,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     @Override
+    public void onBackPressed() {
+        returnToMain();
+    }
+
+    @Override
     public void onMapReady(GoogleMap googleMap) {
         myGoogleMap = googleMap;
     }
