@@ -21,6 +21,7 @@ import com.example.DTO.Product;
 import com.example.DTO.TestDrive;
 import com.squareup.picasso.Picasso;
 
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -90,8 +91,24 @@ public class ProductDetailActivity extends AppCompatActivity {
                 .placeholder(R.drawable.ic_vector_image_loading)
                 .into(productHeaderImg);
         productName.setText(product.getName());
-        productPrice.setText(String.valueOf(product.getPrice()));
+        productPrice.setText(formatPriceText(product.getPrice()));
         productDescription.setText(product.getDescription());
+    }
+
+    public String formatPriceText(String price) {
+        long money = Long.parseLong(price);
+
+        NumberFormat formatter = NumberFormat.getCurrencyInstance();
+        String moneyString = formatter.format(money);
+
+        if (moneyString.endsWith(".00")) {
+            int centsIndex = moneyString.lastIndexOf(".00");
+            if (centsIndex != -1) {
+                moneyString = moneyString.substring(1, centsIndex);
+            }
+        }
+
+        return moneyString + " VNĐ";
     }
 
     public void returnToProductList() {

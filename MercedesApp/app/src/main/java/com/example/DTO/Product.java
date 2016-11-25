@@ -10,7 +10,7 @@ public class Product {
     private String pic3;
     private String pic4;
     private String pic5;
-    private double price;
+    private String price;
 
 
     public String getName() {
@@ -85,11 +85,11 @@ public class Product {
         this.pic5 = pic5;
     }
 
-    public double getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 }

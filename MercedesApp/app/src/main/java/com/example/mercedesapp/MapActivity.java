@@ -36,6 +36,7 @@ import java.util.ArrayList;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
     private GoogleMap myGoogleMap;
+    private String mapLocation;
 
     //region Override Methods
     @Override
@@ -45,6 +46,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map_layout);
         mapFragment.getMapAsync(this);
+        getExtras();
 
         new JSONAsyncTask(this).execute();
     }
@@ -78,17 +80,27 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
     //endregion
 
+    //region Personal Methods
     public void returnToMain() {
         Intent intent = new Intent(MapActivity.this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 
+    public void getExtras() {
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            mapLocation = extras.getString("Location");
+        }
+    }
+    //endregion
+
+    //region AsyncTask
     private class JSONAsyncTask extends AsyncTask<Void, Void, Void> {
 
-        private static final String TAG = "HttpHandler";
-        ArrayList<Coordinate> coordinateArrayList;
         //region Initiation
+        private static final String TAG = "HttpHandler";
+        private ArrayList<Coordinate> coordinateArrayList;
         private Context context;
         private ProgressDialog progressDialog;
         //endregion
@@ -189,10 +201,19 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             super.onPostExecute(mVoid);
             progressDialog.dismiss();
 
-            LatLng mark = new LatLng(coordinateArrayList.get(1).getLongitude(), coordinateArrayList.get(1).getLatitude());
-            myGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mark, 16));
-            myGoogleMap.addMarker(new MarkerOptions().title("Mercedes Vietnam").position(mark));
+            if (mapLocation.equals("Hanoi")) {
+                LatLng mark = new LatLng(coordinateArrayList.get(0).getLongitude(), coordinateArrayList.get(0).getLatitude());
+                myGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mark, 16));
+                myGoogleMap.addMarker(new MarkerOptions()
+                        .title("Vietnam Star Automobile " + coordinateArrayList.get(0).getLocation()).position(mark));
+            } else {
+                LatLng mark = new LatLng(coordinateArrayList.get(1).getLongitude(), coordinateArrayList.get(1).getLatitude());
+                myGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mark, 16));
+                myGoogleMap.addMarker(new MarkerOptions()
+                        .title("Vietnam Star Automobile " + coordinateArrayList.get(1).getLocation()).position(mark));
+            }
         }
         //endregion
     }
+    //endregion
 }

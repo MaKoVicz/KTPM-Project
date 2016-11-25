@@ -55,7 +55,6 @@ public class ProductListActivity extends AppCompatActivity {
     public void onBackPressed() {
         returnToMain();
     }
-
     //endregion
 
     //region Personal Methods

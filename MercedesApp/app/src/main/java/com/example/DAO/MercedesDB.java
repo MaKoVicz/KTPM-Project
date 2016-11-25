@@ -150,7 +150,7 @@ public class MercedesDB extends SQLiteOpenHelper {
                 Product product = new Product();
                 product.setName(cursor.getString(0));
                 product.setColor(cursor.getString(1));
-                product.setPrice(cursor.getDouble(2));
+                product.setPrice(cursor.getString(2));
                 product.setCategory(cursor.getString(3));
                 product.setDescription(cursor.getString(4));
                 product.setPic1(cursor.getString(5));
@@ -179,7 +179,7 @@ public class MercedesDB extends SQLiteOpenHelper {
             do {
                 product.setName(cursor.getString(0));
                 product.setColor(cursor.getString(1));
-                product.setPrice(cursor.getDouble(2));
+                product.setPrice(cursor.getString(2));
                 product.setCategory(cursor.getString(3));
                 product.setDescription(cursor.getString(4));
                 product.setPic1(cursor.getString(5));
@@ -264,7 +264,7 @@ public class MercedesDB extends SQLiteOpenHelper {
 
         String sqlCmd = "INSERT INTO User VALUES(" + username
                 + "," + password + "," + name + "," + dob
-                + "," + phone + "," + address + "," + email + "," + admin + ")";
+                + "," + address + "," + phone + "," + email + "," + admin + ")";
 
         try {
             db.execSQL(sqlCmd);

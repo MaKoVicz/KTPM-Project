@@ -14,6 +14,7 @@ import com.example.DTO.Product;
 import com.example.mercedesapp.R;
 import com.squareup.picasso.Picasso;
 
+import java.text.NumberFormat;
 import java.util.List;
 
 public class ProductAdapter extends ArrayAdapter<Product> {
@@ -68,7 +69,7 @@ public class ProductAdapter extends ArrayAdapter<Product> {
 
         Product product = products.get(position);
         holder.title.setText(product.getName());
-        holder.price.setText(String.valueOf(product.getPrice()));
+        holder.price.setText(formatPriceText(product.getPrice()));
         if (holder.productImg != null) {
             Picasso.with(context)
                     .load(product.getPic1())
@@ -77,6 +78,22 @@ public class ProductAdapter extends ArrayAdapter<Product> {
         }
 
         return convertView;
+    }
+
+    public String formatPriceText(String price) {
+        long money = Long.parseLong(price);
+
+        NumberFormat formatter = NumberFormat.getCurrencyInstance();
+        String moneyString = formatter.format(money);
+
+        if (moneyString.endsWith(".00")) {
+            int centsIndex = moneyString.lastIndexOf(".00");
+            if (centsIndex != -1) {
+                moneyString = moneyString.substring(1, centsIndex);
+            }
+        }
+
+        return moneyString + " VNĐ";
     }
 
     private static class ViewHolder {

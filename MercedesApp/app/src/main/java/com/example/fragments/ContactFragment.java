@@ -70,9 +70,10 @@ public class ContactFragment extends Fragment {
                 .into(hcmAddressImg);
     }
 
-    public void goToMapActivity() {
+    public void goToMapActivity(String location) {
         Intent intent = new Intent(getActivity(), MapActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("Location", location);
         startActivity(intent);
     }
 
@@ -80,14 +81,14 @@ public class ContactFragment extends Fragment {
         hanoiAddressImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goToMapActivity();
+                goToMapActivity("Hanoi");
             }
         });
 
         hcmAddressImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goToMapActivity();
+                goToMapActivity("HCM");
             }
         });
     }

@@ -1,11 +1,14 @@
 package com.example.mercedesapp;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.example.Adapters.NavListAdapter;
+import com.example.DTO.CurrentLoginUser;
 import com.example.DTO.NavItem;
 import com.example.Fragments.AboutFragment;
 import com.example.Fragments.ContactFragment;
@@ -76,7 +80,6 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
     }
-
     //endregion
 
     //region Personal Method
@@ -85,6 +88,10 @@ public class MainActivity extends AppCompatActivity {
         navListItems.add(new NavItem("Home", R.drawable.ic_vector_home));
         navListItems.add(new NavItem("About us", R.drawable.ic_vector_about));
         navListItems.add(new NavItem("Contact us", R.drawable.ic_vector_contact));
+        if (CurrentLoginUser.currentUser.getAdmin() == 1) {
+            navListItems.add(new NavItem("Admin", R.drawable.ic_vector_admin));
+        }
+        navListItems.add(new NavItem("Logout", R.drawable.ic_vector_logout));
 
         NavListAdapter navListAdapter = new NavListAdapter(getApplicationContext(), R.layout.nav_list_item, navListItems);
         navList.setAdapter(navListAdapter);
@@ -109,15 +116,55 @@ public class MainActivity extends AppCompatActivity {
         navList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager.beginTransaction()
-                        .replace(R.id.mainContentLayout, listFragments.get(position)).commit();
+                if (position <= 2) {
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.mainContentLayout, listFragments.get(position)).commit();
 
-                setTitle(navListItems.get(position).getTitle());
-                navList.setItemChecked(position, true);
-                drawerLayout.closeDrawer(navDrawerPane);
+                    setTitle(navListItems.get(position).getTitle());
+                    navList.setItemChecked(position, true);
+                    drawerLayout.closeDrawer(navDrawerPane);
+                } else {
+                    if (position == 3 && CurrentLoginUser.currentUser.getAdmin() == 1) {
+                        showDialogAdmin();
+                    } else {
+                        showDialogLogout();
+                    }
+                }
             }
         });
+    }
+
+    public void showDialogLogout() {
+        new AlertDialog.Builder(this, R.style.AppTheme_Light_Diaglog).setTitle("Message")
+                .setMessage("Do you want to logout?")
+                .setCancelable(false)
+                .setIcon(R.drawable.ic_vector_message)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                    }
+                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        }).show();
+    }
+
+    public void showDialogAdmin() {
+        new AlertDialog.Builder(this, R.style.AppTheme_Light_Diaglog)
+                .setTitle("Message").setMessage("This is ADMIN")
+                .setCancelable(false).setIcon(R.drawable.ic_vector_message)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).show();
     }
 
     public void setupNavDrawerButtonClick() {
