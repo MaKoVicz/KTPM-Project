@@ -19,4 +19,8 @@
     <string name="login_link">Already a member? Login</string>
     <string name="hanoi">Hà Nội</string>
     <string name="hcm">Hồ Chí Minh</string>
+    <string name="admin_product_category">Product Category</string>
+    <string name="admin_product">Product</string>
+    <string name="admin_testdrive">Test Drive</string>
+    <string name="admin_user">User</string>
 </resources>

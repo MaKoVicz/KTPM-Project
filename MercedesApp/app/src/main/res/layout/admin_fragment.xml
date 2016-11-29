@@ -4,9 +4,116 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Admin" />
+        android:baselineAligned="false"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/admin_product_category_option"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_vector_product_category" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingTop="10dp"
+                android:text="@string/admin_product_category"
+                android:textColor="@color/colorBlack"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/admin_product_option"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_vector_product" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingTop="10dp"
+                android:text="@string/admin_product"
+                android:textColor="@color/colorBlack"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/admin_user_option"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_vector_user" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingTop="10dp"
+                android:text="@string/admin_user"
+                android:textColor="@color/colorBlack"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/admin_test_drive_option"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_vector_testdrive" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingTop="10dp"
+                android:text="@string/admin_testdrive"
+                android:textColor="@color/colorBlack"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
 </LinearLayout>

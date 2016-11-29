@@ -26,7 +26,7 @@ public class ProductAdapter extends ArrayAdapter<Product> {
     private List<Product> products;
     //endregion
 
-    //region Methods
+    //region Personal Methods
     public ProductAdapter(Context context, int resLayout, List<Product> products) {
         super(context, resLayout, products);
         this.context = context;
@@ -35,6 +35,24 @@ public class ProductAdapter extends ArrayAdapter<Product> {
         layoutInflater = layoutInflater.from(context);
     }
 
+    public String formatPriceText(String price) {
+        long money = Long.parseLong(price);
+
+        NumberFormat formatter = NumberFormat.getCurrencyInstance();
+        String moneyString = formatter.format(money);
+
+        if (moneyString.endsWith(".00")) {
+            int centsIndex = moneyString.lastIndexOf(".00");
+            if (centsIndex != -1) {
+                moneyString = moneyString.substring(1, centsIndex);
+            }
+        }
+
+        return moneyString + " VNĐ";
+    }
+    //endregion
+
+    //region Override Methods
     @Override
     public int getCount() {
         return products.size();
@@ -79,26 +97,10 @@ public class ProductAdapter extends ArrayAdapter<Product> {
 
         return convertView;
     }
-
-    public String formatPriceText(String price) {
-        long money = Long.parseLong(price);
-
-        NumberFormat formatter = NumberFormat.getCurrencyInstance();
-        String moneyString = formatter.format(money);
-
-        if (moneyString.endsWith(".00")) {
-            int centsIndex = moneyString.lastIndexOf(".00");
-            if (centsIndex != -1) {
-                moneyString = moneyString.substring(1, centsIndex);
-            }
-        }
-
-        return moneyString + " VNĐ";
-    }
+    //endregion
 
     private static class ViewHolder {
         TextView title, price;
         ImageView productImg;
     }
-    //endregion
 }

@@ -1,11 +1,13 @@
 package com.example.DAO;
 
+import android.app.SearchManager;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteQueryBuilder;
 
 import com.example.DTO.Product;
 import com.example.DTO.ProductCategory;
@@ -17,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MercedesDB extends SQLiteOpenHelper {
 
@@ -118,6 +121,22 @@ public class MercedesDB extends SQLiteOpenHelper {
     //endregion
 
     //region Queries
+    public HashMap<String, String> mapping() {
+        // This HashMap is used to map table fields to Custom Suggestion fields
+        HashMap<String, String> mAliasMap = new HashMap<String, String>();
+
+        // Unique id for the each Suggestions ( Mandatory )
+        mAliasMap.put("_ID", "Name" + " as " + "_id");
+
+        // Text for Suggestions ( Mandatory )
+        mAliasMap.put(SearchManager.SUGGEST_COLUMN_TEXT_1, "Name" + " as " + SearchManager.SUGGEST_COLUMN_TEXT_1);
+
+        // This value will be appended to the Intent data on selecting an item from Search result or Suggestions ( Optional )
+        mAliasMap.put(SearchManager.SUGGEST_COLUMN_INTENT_DATA_ID, "Name" + " as " + SearchManager.SUGGEST_COLUMN_INTENT_DATA_ID);
+
+        return mAliasMap;
+    }
+
     public ArrayList<ProductCategory> getProductCategoryData() {
         SQLiteDatabase db = this.getWritableDatabase();
         String SqlCmd = "SELECT * FROM ProductCategory";
@@ -165,6 +184,85 @@ public class MercedesDB extends SQLiteOpenHelper {
         cursor.close();
 
         return products;
+    }
+
+    public ArrayList<TestDrive> getAllTestDriveData() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String SqlCmd = "SELECT * FROM TestDrive";
+        Cursor cursor = db.rawQuery(SqlCmd, null);
+        ArrayList<TestDrive> testDriveArrayList = new ArrayList<>();
+
+        if (cursor.moveToFirst()) {
+            do {
+                TestDrive testDrive = new TestDrive();
+                testDrive.setName(cursor.getString(0));
+                testDrive.setAddress(cursor.getString(1));
+                testDrive.setPhone(cursor.getString(2));
+                testDrive.setEmail(cursor.getString(3));
+                testDrive.setRegisterDate(cursor.getString(4));
+                testDrive.setTestProduct(cursor.getString(5));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+
+        return testDriveArrayList;
+    }
+
+    public TestDrive getTestDriveDetailData(String registerDate) {
+        registerDate = "'" + registerDate + "'";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        String SqlCmd = "SELECT * FROM TestDrive WHERE RegisterDate = " + registerDate;
+        Cursor cursor = db.rawQuery(SqlCmd, null);
+        TestDrive testDrive = new TestDrive();
+
+        if (cursor.moveToFirst()) {
+            testDrive.setName(cursor.getString(0));
+            testDrive.setAddress(cursor.getString(1));
+            testDrive.setPhone(cursor.getString(2));
+            testDrive.setEmail(cursor.getString(3));
+            testDrive.setRegisterDate(cursor.getString(4));
+            testDrive.setTestProduct(cursor.getString(5));
+        }
+
+        cursor.close();
+        return testDrive;
+    }
+
+    public Cursor getProductDetailDataForSearching(String id) {
+        SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
+
+        queryBuilder.setTables("Product");
+        Cursor c = queryBuilder.query(this.getReadableDatabase(),
+                new String[]{"Name", "Color", "Price", "Category", "Description", "Pic1"},
+                "Name = ?", new String[]{id}, null, null, null, "1"
+        );
+
+        return c;
+    }
+
+    public Cursor getProductDataForSearching(String[] selectionArgs) {
+        String selection = "Name" + " like ? ";
+
+        if (selectionArgs != null) {
+            selectionArgs[0] = "%" + selectionArgs[0] + "%";
+        }
+
+        SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
+        queryBuilder.setProjectionMap(mapping());
+        queryBuilder.setTables("Product");
+
+        Cursor c = queryBuilder.query(this.getReadableDatabase(),
+                new String[]{"_ID",
+                        SearchManager.SUGGEST_COLUMN_TEXT_1,
+                        SearchManager.SUGGEST_COLUMN_INTENT_DATA_ID},
+                selection,
+                selectionArgs,
+                null,
+                null,
+                "Name" + " asc ", "10"
+        );
+        return c;
     }
 
     public Product getProductDetailInformation(String name) {
@@ -243,6 +341,53 @@ public class MercedesDB extends SQLiteOpenHelper {
                 user.setAdmin(cursor.getInt(7));
             } while (cursor.moveToNext());
         }
+        cursor.close();
+        return user;
+    }
+
+    public ArrayList<User> getAllUserData() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String SqlCmd = "SELECT * FROM User";
+        Cursor cursor = db.rawQuery(SqlCmd, null);
+        ArrayList<User> userArrayList = new ArrayList<>();
+
+        if (cursor.moveToFirst()) {
+            do {
+                User user = new User();
+                user.setUsername(cursor.getString(0));
+                user.setPassword(cursor.getString(1));
+                user.setName(cursor.getString(2));
+                user.setDob(cursor.getString(3));
+                user.setAddress(cursor.getString(4));
+                user.setPhone(cursor.getString(5));
+                user.setEmail(cursor.getString(6));
+                user.setAdmin(cursor.getInt(7));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+
+        return userArrayList;
+    }
+
+    public User getUserDetailDataByEmail(String email) {
+        email = "'" + email + "'";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        String SqlCmd = "SELECT * FROM User WHERE Email = " + email;
+        Cursor cursor = db.rawQuery(SqlCmd, null);
+        User user = new User();
+
+        if (cursor.moveToFirst()) {
+            user.setUsername(cursor.getString(0));
+            user.setPassword(cursor.getString(1));
+            user.setName(cursor.getString(2));
+            user.setDob(cursor.getString(3));
+            user.setAddress(cursor.getString(4));
+            user.setPhone(cursor.getString(5));
+            user.setEmail(cursor.getString(6));
+            user.setAdmin(cursor.getInt(7));
+        }
+
         cursor.close();
         return user;
     }

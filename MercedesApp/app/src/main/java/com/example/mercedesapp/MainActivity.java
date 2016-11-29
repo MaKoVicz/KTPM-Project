@@ -21,6 +21,7 @@ import com.example.Adapters.NavListAdapter;
 import com.example.DTO.CurrentLoginUser;
 import com.example.DTO.NavItem;
 import com.example.Fragments.AboutFragment;
+import com.example.Fragments.AdminFragment;
 import com.example.Fragments.ContactFragment;
 import com.example.Fragments.HomeFragment;
 
@@ -71,6 +72,12 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
             return true;
+        } else {
+            switch (item.getItemId()) {
+                case R.id.btnSearch:
+                    onSearchRequested();
+                    break;
+            }
         }
 
         return super.onOptionsItemSelected(item);
@@ -126,7 +133,9 @@ public class MainActivity extends AppCompatActivity {
                     drawerLayout.closeDrawer(navDrawerPane);
                 } else {
                     if (position == 3 && CurrentLoginUser.currentUser.getAdmin() == 1) {
-                        showDialogAdmin();
+                        gotoAdminFragment();
+                        navList.setItemChecked(position, true);
+                        drawerLayout.closeDrawer(navDrawerPane);
                     } else {
                         showDialogLogout();
                     }
@@ -155,16 +164,11 @@ public class MainActivity extends AppCompatActivity {
         }).show();
     }
 
-    public void showDialogAdmin() {
-        new AlertDialog.Builder(this, R.style.AppTheme_Light_Diaglog)
-                .setTitle("Message").setMessage("This is ADMIN")
-                .setCancelable(false).setIcon(R.drawable.ic_vector_message)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                }).show();
+    public void gotoAdminFragment() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.mainContentLayout, new AdminFragment()).commit();
+        setTitle("Admin");
     }
 
     public void setupNavDrawerButtonClick() {

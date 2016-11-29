@@ -6,6 +6,7 @@ import com.example.DAO.MercedesDB;
 import com.example.DTO.User;
 
 import java.security.MessageDigest;
+import java.util.ArrayList;
 
 public class UserBUS {
     private Context context;
@@ -64,5 +65,13 @@ public class UserBUS {
 
     public User getUserData(String username) {
         return new MercedesDB(context).getUserData(username);
+    }
+
+    public ArrayList<User> getAllUserData() {
+        return new MercedesDB(context).getAllUserData();
+    }
+
+    public User getUserDetailDataByEmail(String email) {
+        return new MercedesDB(context).getUserDetailDataByEmail(email);
     }
 }
