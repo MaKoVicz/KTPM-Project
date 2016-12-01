@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
             return true;
         } else {
             switch (item.getItemId()) {
-                case R.id.btnSearch:
+                case R.id.btnSearchProduct:
                     onSearchRequested();
                     break;
             }

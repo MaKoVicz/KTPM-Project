@@ -201,6 +201,8 @@ public class MercedesDB extends SQLiteOpenHelper {
                 testDrive.setEmail(cursor.getString(3));
                 testDrive.setRegisterDate(cursor.getString(4));
                 testDrive.setTestProduct(cursor.getString(5));
+
+                testDriveArrayList.add(testDrive);
             } while (cursor.moveToNext());
         }
         cursor.close();
@@ -362,6 +364,8 @@ public class MercedesDB extends SQLiteOpenHelper {
                 user.setPhone(cursor.getString(5));
                 user.setEmail(cursor.getString(6));
                 user.setAdmin(cursor.getInt(7));
+
+                userArrayList.add(user);
             } while (cursor.moveToNext());
         }
         cursor.close();

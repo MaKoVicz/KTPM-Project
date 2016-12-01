@@ -1,13 +1,20 @@
 package com.example.mercedesapp;
 
+import android.app.SearchManager;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.SearchView;
+import android.widget.SearchView.OnQueryTextListener;
 import android.widget.Toast;
 
 import com.example.Adapters.TestDriveAdapter;
@@ -18,14 +25,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TestDriveListActivity extends AppCompatActivity {
+
+    //region Initiation
+    int currentMenu = R.menu.admin_menu;
     private ListView testDriveLV;
     private List<TestDrive> testdriveList;
+    private SearchView searchView;
+    //endregion
 
     //region Override Methods
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_testdrive_list);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         testDriveLV = (ListView) findViewById(R.id.testdrive_list);
 
         setupListView();
@@ -34,21 +47,75 @@ public class TestDriveListActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        return super.onCreateOptionsMenu(menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.admin_menu, menu);
+
+        final SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.btnSearchList));
+        searchView.setIconifiedByDefault(false);
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setSubmitButtonEnabled(true);
+
+        setSearchViewOnQueryTextListener();
+        setSearchViewOnFocusChangeListener();
+        return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                returnToMainActivity();
+                return true;
+            case R.id.btnSearchList:
+                searchView.setIconifiedByDefault(false);
+                searchView.setIconified(false);
+                return true;
+        }
+
+        return false;
     }
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        returnToMainActivity();
     }
     //endregion
 
     //region Personal Methods
+    public void returnToMainActivity() {
+        Intent intent = new Intent(TestDriveListActivity.this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
+
+    public void setSearchViewOnQueryTextListener() {
+        searchView.setOnQueryTextListener(new OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return true;
+            }
+        });
+    }
+
+    public void setSearchViewOnFocusChangeListener() {
+        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    searchView.setQuery("", false);
+                    searchView.setIconifiedByDefault(true);
+                    searchView.setIconified(true);
+                }
+            }
+        });
+    }
+
     public void setupListView() {
         testdriveList = new ArrayList<>();
         testdriveList = new TestDriveBUS(this).getAllTestDriveData();

@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.example.DTO.User;
 import com.example.mercedesapp.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class UserAdapter extends ArrayAdapter<User> {

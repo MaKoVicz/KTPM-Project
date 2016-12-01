@@ -26,6 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ProductDetailActivity extends AppCompatActivity {
+
     //region Initiation
     private TextView productName, productPrice, productDescription;
     private ImageView productHeaderImg;
