@@ -8,7 +8,7 @@ import com.example.DTO.TestDrive;
 import java.util.ArrayList;
 
 public class TestDriveBUS {
-    Context context;
+    private Context context;
 
     public TestDriveBUS(Context context) {
         this.context = context;
@@ -24,5 +24,9 @@ public class TestDriveBUS {
 
     public TestDrive getTestDriveDetailData(String registerDate) {
         return new MercedesDB(context).getTestDriveDetailData(registerDate);
+    }
+
+    public boolean deleteTestDriveData(String registerDate) {
+        return new MercedesDB(context).deleteTestDriveData(registerDate);
     }
 }

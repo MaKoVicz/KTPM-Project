@@ -448,5 +448,36 @@ public class MercedesDB extends SQLiteOpenHelper {
 
         return result;
     }
+
+    public boolean deleteTestDriveData(String registerDate) {
+        registerDate = "'" + registerDate + "'";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        boolean result = true;
+        String sqlCmd = "DELETE FROM TestDrive WHERE RegisterDate = " + registerDate;
+
+        try {
+            db.execSQL(sqlCmd);
+        } catch (Exception ex) {
+            result = false;
+        }
+
+        return result;
+    }
+
+    public boolean deleteUserData(String email) {
+        email = "'" + email + "'";
+        SQLiteDatabase db = this.getWritableDatabase();
+        boolean result = true;
+        String sqlCmd = "DELETE FROM User WHERE Email = " + email;
+
+        try {
+            db.execSQL(sqlCmd);
+        } catch (Exception ex) {
+            result = false;
+        }
+
+        return result;
+    }
     //endregion
 }

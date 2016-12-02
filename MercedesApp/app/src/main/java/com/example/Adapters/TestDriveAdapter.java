@@ -7,42 +7,48 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.DTO.TestDrive;
 import com.example.mercedesapp.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class TestDriveAdapter extends ArrayAdapter<TestDrive> {
+public class TestDriveAdapter extends BaseAdapter implements Filterable {
 
     //region Initiation
     private LayoutInflater layoutInflater;
     private Context context;
     private int resLayout;
+    private TestDriveFilter testDriveFilter = new TestDriveFilter();
     private List<TestDrive> testDriveList;
+    private List<TestDrive> filterList;
     //endregion
 
     //region Personal Methods
     public TestDriveAdapter(Context context, int resLayout, List<TestDrive> testDriveList) {
-        super(context, resLayout, testDriveList);
         this.context = context;
         this.resLayout = resLayout;
         this.testDriveList = testDriveList;
-        layoutInflater = layoutInflater.from(context);
+        this.filterList = testDriveList;
     }
     //endregion
 
     //region Override Methods
     @Override
     public int getCount() {
-        return testDriveList.size();
+        return filterList.size();
     }
 
     @Nullable
     @Override
     public TestDrive getItem(int position) {
-        return testDriveList.get(position);
+        return filterList.get(position);
     }
 
     @Override
@@ -53,10 +59,12 @@ public class TestDriveAdapter extends ArrayAdapter<TestDrive> {
     @NonNull
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        TestDriveAdapter.ViewHolder holder;
+        final TestDriveAdapter.ViewHolder holder;
+        final TestDrive testDrive = getItem(position);
 
         if (convertView == null) {
-            convertView = layoutInflater.inflate(resLayout, null);
+            layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = layoutInflater.inflate(resLayout, parent, false);
             holder = new TestDriveAdapter.ViewHolder();
             holder.testProduct = (TextView) convertView.findViewById(R.id.testdrive_list_item_testProduct_txtv);
             holder.guessName = (TextView) convertView.findViewById(R.id.testdrive_list_item_username_txtv);
@@ -67,7 +75,6 @@ public class TestDriveAdapter extends ArrayAdapter<TestDrive> {
             holder = (TestDriveAdapter.ViewHolder) convertView.getTag();
         }
 
-        TestDrive testDrive = testDriveList.get(position);
         holder.testProduct.setText(testDrive.getTestProduct());
         holder.guessName.setText(testDrive.getName());
         holder.registerDate.setText(testDrive.getRegisterDate());
@@ -75,9 +82,55 @@ public class TestDriveAdapter extends ArrayAdapter<TestDrive> {
 
         return convertView;
     }
+
+    @NonNull
+    @Override
+    public Filter getFilter() {
+        /*if (testDriveFilter == null) {
+            testDriveFilter = new TestDriveFilter();
+        }*/
+
+        return testDriveFilter;
+    }
     //endregion
 
+    //region Private Classes
     private static class ViewHolder {
         TextView testProduct, guessName, registerDate, phone;
     }
+
+    private class TestDriveFilter extends Filter {
+
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            FilterResults filterResults = new FilterResults();
+
+            if (constraint != null && constraint.length() > 0) {
+                ArrayList<TestDrive> tempList = new ArrayList<>();
+
+                // search content in test drive list
+                for (TestDrive testDrive : testDriveList) {
+                    if (testDrive.getName().toLowerCase().contains(constraint.toString().toLowerCase())) {
+                        tempList.add(testDrive);
+                    }
+                }
+
+                filterResults.count = tempList.size();
+                filterResults.values = tempList;
+            } else {
+                filterResults.count = testDriveList.size();
+                filterResults.values = testDriveList;
+            }
+
+            return filterResults;
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            filterList = (List<TestDrive>) results.values;
+            notifyDataSetChanged();
+        }
+    }
+    //endregion
 }
