@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.DTO.User;
@@ -14,7 +15,7 @@ import com.example.mercedesapp.R;
 
 import java.util.List;
 
-public class UserAdapter extends ArrayAdapter<User> {
+public class UserAdapter extends BaseAdapter {
 
     //region Initiation
     private LayoutInflater layoutInflater;
@@ -25,7 +26,6 @@ public class UserAdapter extends ArrayAdapter<User> {
 
     //region Personal Methods
     public UserAdapter(Context context, int resLayout, List<User> userList) {
-        super(context, resLayout, userList);
         this.context = context;
         this.resLayout = resLayout;
         this.userList = userList;

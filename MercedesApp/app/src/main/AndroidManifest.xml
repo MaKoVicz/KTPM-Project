@@ -55,22 +55,35 @@
         <activity
             android:name=".ProductListActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait">
+        </activity>
 
         <activity
             android:name=".ProductDetailActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait">
+        </activity>
 
         <activity
             android:name=".MapActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait">
+        </activity>
 
         <activity
             android:name=".UserListActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait">
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/admin_testdrive_searchable"></meta-data>
+        </activity>
+
+        <activity android:name=".UserDetailActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+        </activity>
 
         <activity
             android:name=".TestDriveListActivity"
@@ -85,7 +98,8 @@
         <activity
             android:name=".TestDriveDetailActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait">
+        </activity>
 
         <activity
             android:name=".ProductSearchableActivity"

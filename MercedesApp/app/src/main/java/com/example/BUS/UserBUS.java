@@ -74,4 +74,8 @@ public class UserBUS {
     public User getUserDetailDataByEmail(String email) {
         return new MercedesDB(context).getUserDetailDataByEmail(email);
     }
+
+    public boolean deleteUserData(String email) {
+        return new MercedesDB(context).deleteUserData(email);
+    }
 }

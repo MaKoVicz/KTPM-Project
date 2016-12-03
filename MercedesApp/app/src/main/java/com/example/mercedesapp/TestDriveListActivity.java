@@ -91,8 +91,8 @@ public class TestDriveListActivity extends AppCompatActivity {
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         testDriveData = testDriveAdapter.getItem(info.position);
-        Toast.makeText(this, testDriveAdapter.getCount() + "", Toast.LENGTH_SHORT).show();
-        /*if (new TestDriveBUS(this).deleteTestDriveData(testDriveData.getRegisterDate())) {
+
+        if (new TestDriveBUS(this).deleteTestDriveData(testDriveData.getRegisterDate())) {
             Toast.makeText(this, "Delete Succeeded", Toast.LENGTH_SHORT).show();
             setupListView();
             testDriveAdapter.getFilter().filter(filterText);
@@ -100,7 +100,7 @@ public class TestDriveListActivity extends AppCompatActivity {
             Toast.makeText(this, "Delete Failed", Toast.LENGTH_SHORT).show();
             setupListView();
             testDriveAdapter.getFilter().filter(filterText);
-        }*/
+        }
 
         return true;
     }
