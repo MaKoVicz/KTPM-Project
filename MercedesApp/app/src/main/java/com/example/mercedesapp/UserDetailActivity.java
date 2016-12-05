@@ -104,6 +104,9 @@ public class UserDetailActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         if (new UserBUS(UserDetailActivity.this).deleteUserData(email.getText().toString())) {
                             Toast.makeText(UserDetailActivity.this, "Delete Succeeded", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(UserDetailActivity.this, UserListActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
                         } else {
                             Toast.makeText(UserDetailActivity.this, "Delete Failed", Toast.LENGTH_SHORT).show();
                         }

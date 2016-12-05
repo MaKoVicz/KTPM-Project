@@ -6,12 +6,10 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.DTO.TestDrive;
 import com.example.mercedesapp.R;
@@ -86,10 +84,6 @@ public class TestDriveAdapter extends BaseAdapter implements Filterable {
     @NonNull
     @Override
     public Filter getFilter() {
-        /*if (testDriveFilter == null) {
-            testDriveFilter = new TestDriveFilter();
-        }*/
-
         return testDriveFilter;
     }
     //endregion

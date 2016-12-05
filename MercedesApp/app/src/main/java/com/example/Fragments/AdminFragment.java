@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.mercedesapp.AdminProductCategoryListActivity;
+import com.example.mercedesapp.AdminProductListActivity;
 import com.example.mercedesapp.R;
 import com.example.mercedesapp.TestDriveListActivity;
 import com.example.mercedesapp.UserListActivity;
@@ -35,14 +37,18 @@ public class AdminFragment extends Fragment {
         productCategoryOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "Product Category Option Click", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), AdminProductCategoryListActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         });
 
         productOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "Product Option Click", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), AdminProductListActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         });
 

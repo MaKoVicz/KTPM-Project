@@ -18,6 +18,10 @@ public class ProductBUS {
         return new MercedesDB(context).getProductData(category);
     }
 
+    public ArrayList<Product> getAllProductData() {
+        return new MercedesDB(context).getAllProductData();
+    }
+
     public Product getProductDetailInformation(String name) {
         return new MercedesDB(context).getProductDetailInformation(name);
     }

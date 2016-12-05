@@ -141,19 +141,19 @@ public class MercedesDB extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         String SqlCmd = "SELECT * FROM ProductCategory";
         Cursor cursor = db.rawQuery(SqlCmd, null);
-        ArrayList<ProductCategory> categoies = new ArrayList<>();
+        ArrayList<ProductCategory> categories = new ArrayList<>();
 
         if (cursor.moveToFirst()) {
             do {
                 ProductCategory category = new ProductCategory();
                 category.setName(cursor.getString(0));
                 category.setImageURL(cursor.getString(1));
-                categoies.add(category);
+                categories.add(category);
             } while (cursor.moveToNext());
         }
         cursor.close();
 
-        return categoies;
+        return categories;
     }
 
     public ArrayList<Product> getProductData(String category) {
@@ -161,6 +161,34 @@ public class MercedesDB extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getWritableDatabase();
         String SqlCmd = "SELECT * FROM Product WHERE Category = " + category;
+        Cursor cursor = db.rawQuery(SqlCmd, null);
+        ArrayList<Product> products = new ArrayList<>();
+
+        if (cursor.moveToFirst()) {
+            do {
+                Product product = new Product();
+                product.setName(cursor.getString(0));
+                product.setColor(cursor.getString(1));
+                product.setPrice(cursor.getString(2));
+                product.setCategory(cursor.getString(3));
+                product.setDescription(cursor.getString(4));
+                product.setPic1(cursor.getString(5));
+                product.setPic2(cursor.getString(6));
+                product.setPic3(cursor.getString(7));
+                product.setPic4(cursor.getString(8));
+                product.setPic5(cursor.getString(9));
+
+                products.add(product);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+
+        return products;
+    }
+
+    public ArrayList<Product> getAllProductData() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String SqlCmd = "SELECT * FROM Product";
         Cursor cursor = db.rawQuery(SqlCmd, null);
         ArrayList<Product> products = new ArrayList<>();
 

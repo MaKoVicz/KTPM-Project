@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.example.Adapters.UserAdapter;
 import com.example.BUS.UserBUS;
@@ -28,8 +29,10 @@ public class UserListActivity extends AppCompatActivity {
     //region Initiation
     private SearchView searchView;
     private ListView userLV;
+    private UserAdapter userAdapter;
     private List<User> userList;
     private User userData;
+    private String filterText;
     //endregion
 
     //region Override Methods
@@ -42,6 +45,7 @@ public class UserListActivity extends AppCompatActivity {
 
         setupUserList();
         setOnListItemClickListener();
+        registerForContextMenu(userLV);
     }
 
     @Override
@@ -77,12 +81,27 @@ public class UserListActivity extends AppCompatActivity {
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
+        if (v.getId() == R.id.user_list) {
+            menu.add(Menu.NONE, 0, 0, "Delete");
+        }
     }
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        return super.onContextItemSelected(item);
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        userData = userAdapter.getItem(info.position);
+
+        if (new UserBUS(this).deleteUserData(userData.getEmail())) {
+            Toast.makeText(this, "Delete Succeeded", Toast.LENGTH_SHORT).show();
+            setupUserList();
+            userAdapter.getFilter().filter(filterText);
+        } else {
+            Toast.makeText(this, "Delete Failed", Toast.LENGTH_SHORT).show();
+            setupUserList();
+            userAdapter.getFilter().filter(filterText);
+        }
+
+        return true;
     }
 
     @Override
@@ -93,6 +112,8 @@ public class UserListActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        setupUserList();
+        userAdapter.getFilter().filter(filterText);
     }
     //endregion
 
@@ -106,7 +127,7 @@ public class UserListActivity extends AppCompatActivity {
     public void setupUserList() {
         userList = new ArrayList<>();
         userList = new UserBUS(this).getAllUserData();
-        UserAdapter userAdapter = new UserAdapter(this, R.layout.user_list_item, userList);
+        userAdapter = new UserAdapter(this, R.layout.user_list_item, userList);
         userLV.setAdapter(userAdapter);
     }
 
@@ -133,7 +154,9 @@ public class UserListActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                return false;
+                userAdapter.getFilter().filter(newText);
+                filterText = newText;
+                return true;
             }
         });
     }
