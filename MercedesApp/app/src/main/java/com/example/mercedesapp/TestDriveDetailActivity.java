@@ -37,7 +37,7 @@ public class TestDriveDetailActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.client_detail_info_menu, menu);
+        getMenuInflater().inflate(R.menu.detail_info_menu, menu);
         return true;
     }
 

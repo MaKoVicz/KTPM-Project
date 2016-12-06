@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.Adapters.AdminProductCategoryAdapter;
 import com.example.BUS.ProductCategoryBUS;
@@ -49,6 +48,9 @@ public class AdminProductCategoryListActivity extends AppCompatActivity {
             case android.R.id.home:
                 returnToMainActivity();
                 return true;
+            case R.id.btnAdd:
+                gotoProductCategoryDetail("Add", "");
+                return true;
         }
 
         return false;
@@ -80,9 +82,18 @@ public class AdminProductCategoryListActivity extends AppCompatActivity {
         productCategoryListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(AdminProductCategoryListActivity.this, "OK BABE", Toast.LENGTH_SHORT).show();
+                ProductCategory productCategory = (ProductCategory) parent.getAdapter().getItem(position);
+                gotoProductCategoryDetail("Update", productCategory.getName());
             }
         });
+    }
+
+    public void gotoProductCategoryDetail(String buttonQueryText, String categoryNameData) {
+        Intent intent = new Intent(AdminProductCategoryListActivity.this, AdminCategoryDetailActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("buttonQueryText", buttonQueryText);
+        intent.putExtra("productCategoryName", categoryNameData);
+        startActivity(intent);
     }
     //endregion
 }

@@ -156,6 +156,80 @@ public class MercedesDB extends SQLiteOpenHelper {
         return categories;
     }
 
+    public ProductCategory getProductCategoryDetailData(String name) {
+        name = "'" + name + "'";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        String SqlCmd = "SELECT * FROM ProductCategory WHERE Name = " + name;
+        Cursor cursor = db.rawQuery(SqlCmd, null);
+        ProductCategory productCategory = new ProductCategory();
+
+        if (cursor.moveToFirst()) {
+            productCategory.setName(cursor.getString(0));
+            productCategory.setImageURL(cursor.getString(1));
+        }
+        cursor.close();
+
+        return productCategory;
+    }
+
+    public boolean addProductCategoryData(ProductCategory productCategory) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        boolean result = true;
+        String name, imgLink;
+
+        name = "'" + productCategory.getName() + "'";
+        imgLink = "'" + productCategory.getImageURL() + "'";
+
+        String sqlCmd = "INSERT INTO ProductCategory VALUES(" + name
+                + "," + imgLink + ")";
+
+        try {
+            db.execSQL(sqlCmd);
+        } catch (Exception ex) {
+            result = false;
+        }
+
+        return result;
+    }
+
+    public boolean updateProductCategoryData(String name, ProductCategory productCategory) {
+        String updateName, updateImgLink;
+        SQLiteDatabase db = this.getWritableDatabase();
+        boolean result = true;
+
+        name = "'" + name + "'";
+        updateName = "'" + productCategory.getName() + "'";
+        updateImgLink = "'" + productCategory.getImageURL() + "'";
+
+        String sqlCmd = "UPDATE Product SET Name = " + updateName + ", " + "Picture = " + updateImgLink
+                + " WHERE Name = " + name;
+
+        try {
+            db.execSQL(sqlCmd);
+        } catch (Exception ex) {
+            result = false;
+        }
+
+        return result;
+    }
+
+    public boolean deleteProductCategoryData(String name) {
+        name = "'" + name + "'";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        boolean result = true;
+        String sqlCmd = "DELETE FROM ProductCategory WHERE Name = " + name;
+
+        try {
+            db.execSQL(sqlCmd);
+        } catch (Exception ex) {
+            result = false;
+        }
+
+        return result;
+    }
+
     public ArrayList<Product> getProductData(String category) {
         category = "'" + category + "'";
 
@@ -212,6 +286,99 @@ public class MercedesDB extends SQLiteOpenHelper {
         cursor.close();
 
         return products;
+    }
+
+    public Product getProductDetailInformation(String name) {
+        name = "'" + name + "'";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        String SqlCmd = "SELECT * FROM Product WHERE Name = " + name;
+        Cursor cursor = db.rawQuery(SqlCmd, null);
+        Product product = new Product();
+
+        if (cursor.moveToFirst()) {
+            product.setName(cursor.getString(0));
+            product.setColor(cursor.getString(1));
+            product.setPrice(cursor.getString(2));
+            product.setCategory(cursor.getString(3));
+            product.setDescription(cursor.getString(4));
+            product.setPic1(cursor.getString(5));
+            product.setPic2(cursor.getString(6));
+            product.setPic3(cursor.getString(7));
+            product.setPic4(cursor.getString(8));
+            product.setPic5(cursor.getString(9));
+        }
+        cursor.close();
+
+        return product;
+    }
+
+    public boolean addProductData(Product product) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        boolean result = true;
+        String name, color, price, category, description, pic1;
+
+        name = "'" + product.getName() + "'";
+        color = "'" + product.getColor() + "'";
+        price = "'" + product.getPrice() + "'";
+        category = "'" + product.getCategory() + "'";
+        description = "'" + product.getDescription() + "'";
+        pic1 = "'" + product.getPic1() + "'";
+
+        String sqlCmd = "INSERT INTO Product (Name, Color, Price, Category, Description, Pic1) "
+                + "VALUES(" + name + "," + color + "," + price + "," + category
+                + "," + description + "," + pic1 + ")";
+
+        try {
+            db.execSQL(sqlCmd);
+        } catch (Exception ex) {
+            result = false;
+        }
+
+        return result;
+    }
+
+    public boolean updateProductData(String name, Product product) {
+        String updateName, updateColor, updatePrice, updateCategory, updateDescription, updatePic1;
+        SQLiteDatabase db = this.getWritableDatabase();
+        boolean result = true;
+
+        name = "'" + name + "'";
+        updateName = "'" + product.getName() + "'";
+        updateColor = "'" + product.getColor() + "'";
+        updatePrice = "'" + product.getPrice() + "'";
+        updateCategory = "'" + product.getCategory() + "'";
+        updateDescription = "'" + product.getDescription() + "'";
+        updatePic1 = "'" + product.getPic1() + "'";
+
+        String sqlCmd = "UPDATE Product SET Name = " + updateName + ", " + "Color = " + updateColor
+                + ", " + "Price = " + updatePrice + ", " + "Category = " + updateCategory
+                + ", " + "Description = " + updateDescription + ", " + "Pic1 = " + updatePic1
+                + " WHERE Name = " + name;
+
+        try {
+            db.execSQL(sqlCmd);
+        } catch (Exception ex) {
+            result = false;
+        }
+
+        return result;
+    }
+
+    public boolean deleteProductData(String name) {
+        name = "'" + name + "'";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        boolean result = true;
+        String sqlCmd = "DELETE FROM Product WHERE Name = " + name;
+
+        try {
+            db.execSQL(sqlCmd);
+        } catch (Exception ex) {
+            result = false;
+        }
+
+        return result;
     }
 
     public ArrayList<TestDrive> getAllTestDriveData() {
@@ -293,33 +460,6 @@ public class MercedesDB extends SQLiteOpenHelper {
                 "Name" + " asc ", "10"
         );
         return c;
-    }
-
-    public Product getProductDetailInformation(String name) {
-        name = "'" + name + "'";
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        String SqlCmd = "SELECT * FROM Product WHERE Name = " + name;
-        Cursor cursor = db.rawQuery(SqlCmd, null);
-        Product product = new Product();
-
-        if (cursor.moveToFirst()) {
-            do {
-                product.setName(cursor.getString(0));
-                product.setColor(cursor.getString(1));
-                product.setPrice(cursor.getString(2));
-                product.setCategory(cursor.getString(3));
-                product.setDescription(cursor.getString(4));
-                product.setPic1(cursor.getString(5));
-                product.setPic2(cursor.getString(6));
-                product.setPic3(cursor.getString(7));
-                product.setPic4(cursor.getString(8));
-                product.setPic5(cursor.getString(9));
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-
-        return product;
     }
 
     public int getUserEmailForSignUpCheck(String email) {
