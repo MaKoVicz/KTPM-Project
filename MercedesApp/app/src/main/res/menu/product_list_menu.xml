@@ -7,12 +7,12 @@
         android1:icon="@drawable/ic_vector_search"
         android1:title="Search"
         android:actionViewClass="android.widget.SearchView"
-        android:showAsAction="always|collapseActionView"></item>
+        android:showAsAction="always|collapseActionView"/>
 
     <item
         android1:id="@+id/btnAdd"
         android1:icon="@drawable/ic_vector_add"
         android1:title="Search"
-        android:showAsAction="always|collapseActionView"></item>
+        android:showAsAction="always|collapseActionView"/>
 
 </menu>

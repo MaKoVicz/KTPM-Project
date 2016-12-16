@@ -5,19 +5,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.example.DTO.Product;
 import com.example.mercedesapp.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class AdminProductAdapter extends BaseAdapter {
+public class AdminProductAdapter extends BaseAdapter implements Filterable {
 
     //region Initiation
     private List<Product> productList;
     private Context context;
     private int resLayout;
+    private List<Product> filterList;
+    private AdminProductFilter adminProductFilter = new AdminProductFilter();
     //endregion
 
     //region Personal Methods
@@ -25,18 +30,19 @@ public class AdminProductAdapter extends BaseAdapter {
         this.context = context;
         this.resLayout = resLayout;
         this.productList = productList;
+        this.filterList = productList;
     }
     //endregion
 
     //region Override Methods
     @Override
     public int getCount() {
-        return productList.size();
+        return filterList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return productList.get(position);
+        return filterList.get(position);
     }
 
     @Override
@@ -63,11 +69,50 @@ public class AdminProductAdapter extends BaseAdapter {
 
         return convertView;
     }
+
+    @Override
+    public Filter getFilter() {
+        return adminProductFilter;
+    }
     //endregion
 
     //region Private Classes
     private static class ViewHolder {
         TextView productName;
+    }
+
+    private class AdminProductFilter extends Filter {
+
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            FilterResults filterResults = new FilterResults();
+
+            if (constraint != null && constraint.length() > 0) {
+                ArrayList<Product> tempList = new ArrayList<>();
+
+                // search content in test drive list
+                for (Product product : productList) {
+                    if (product.getName().toLowerCase().contains(constraint.toString().toLowerCase())) {
+                        tempList.add(product);
+                    }
+                }
+
+                filterResults.count = tempList.size();
+                filterResults.values = tempList;
+            } else {
+                filterResults.count = productList.size();
+                filterResults.values = productList;
+            }
+
+            return filterResults;
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            filterList = (List<Product>) results.values;
+            notifyDataSetChanged();
+        }
     }
     //endregion
 }

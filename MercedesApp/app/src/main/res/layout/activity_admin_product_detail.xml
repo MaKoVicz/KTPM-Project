@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name:"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/admin_product_detail_name_edt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mercedes S 500 L"
+            android:textColor="@color/colorBlack"
+            android:textCursorDrawable="@null"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Color:"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/admin_product_detail_color_edt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="White"
+            android:textColor="@color/colorBlack"
+            android:textCursorDrawable="@null"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Price:"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/admin_product_detail_price_edt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1,339,000,000 VNĐ"
+            android:textCursorDrawable="@null"
+            android:textColor="@color/colorBlack"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Category:"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/admin_product_detail_category_edt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="S Class"
+            android:textColor="@color/colorBlack"
+            android:textCursorDrawable="@null"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Description:"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/admin_product_detail_description_edt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top|left"
+            android:inputType="textMultiLine"
+            android:minLines="6"
+            android:maxLines="10"
+            android:scrollbars="vertical"
+            android:text="Whatever"
+            android:textColor="@color/colorBlack"
+            android:textCursorDrawable="@null"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Picture Link:"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/admin_product_detail_picture_edt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top|left"
+            android:inputType="textMultiLine"
+            android:minLines="3"
+            android:scrollbars="vertical"
+            android:text="https://drive.google.com/uc?export=download"
+            android:textColor="@color/colorBlack"
+            android:textCursorDrawable="@null"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btnQueryProductData"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/test_drive_register_btn"
+            android:text="Add"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</ScrollView>

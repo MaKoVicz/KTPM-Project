@@ -34,6 +34,7 @@
         android:scrollbars="vertical"
         android:text="https://drive.google.com/uc?export=download"
         android:textColor="@color/colorBlack"
+        android:textCursorDrawable="@null"
         android:textSize="15sp" />
 
     <Button

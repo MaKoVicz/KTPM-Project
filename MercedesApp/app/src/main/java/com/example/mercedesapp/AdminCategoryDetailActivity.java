@@ -106,7 +106,7 @@ public class AdminCategoryDetailActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Update Failed", Toast.LENGTH_SHORT).show();
         }
-    } //not finish
+    }
 
     public void deleteProductCategoryData() {
         new AlertDialog.Builder(this, R.style.AppTheme_Light_Diaglog)
@@ -115,10 +115,13 @@ public class AdminCategoryDetailActivity extends AppCompatActivity {
                 .setPositiveButton("YES", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        new ProductCategoryBUS(AdminCategoryDetailActivity.this)
-                                .deleteProductCategoryData(categoryNameTextView.getText().toString());
+                        if (new ProductCategoryBUS(AdminCategoryDetailActivity.this).deleteProductCategoryData(categoryName)) {
+                            Toast.makeText(AdminCategoryDetailActivity.this, "Delete Succeeded", Toast.LENGTH_SHORT).show();
+                            returnToAdminCategoryList();
+                        } else {
+                            Toast.makeText(AdminCategoryDetailActivity.this, "Delete Failed", Toast.LENGTH_SHORT).show();
+                        }
 
-                        returnToAdminCategoryList();
                     }
                 }).setNegativeButton("NO", new DialogInterface.OnClickListener() {
             @Override
