@@ -8,12 +8,12 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ContextMenu;
-import android.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.example.Adapters.AdminProductCategoryAdapter;
@@ -164,7 +164,7 @@ public class AdminProductCategoryListActivity extends AppCompatActivity {
         searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(!hasFocus) {
+                if (!hasFocus) {
                     searchView.setQuery("", false);
                     searchView.setIconifiedByDefault(true);
                     searchView.setIconified(true);

@@ -55,17 +55,17 @@
         <activity
             android:name=".ProductListActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".ProductDetailActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".MapActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".UserListActivity"
@@ -80,7 +80,7 @@
         <activity
             android:name=".UserDetailActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".TestDriveListActivity"
@@ -95,7 +95,7 @@
         <activity
             android:name=".TestDriveDetailActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".AdminProductCategoryListActivity"
@@ -104,13 +104,13 @@
 
             <meta-data
                 android:name="android.app.searchable"
-                android:resource="@xml/admin_searchable"/>
+                android:resource="@xml/admin_searchable" />
         </activity>
 
         <activity
             android:name=".AdminCategoryDetailActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".AdminProductListActivity"
@@ -119,13 +119,13 @@
 
             <meta-data
                 android:name="android.app.searchable"
-                android:resource="@xml/admin_searchable"/>
+                android:resource="@xml/admin_searchable" />
         </activity>
 
         <activity
             android:name=".AdminProductDetailActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".ProductSearchableActivity"
