@@ -76,7 +76,7 @@ public class ProductBUS {
 
             int counter = 0;
             for (int i = 0; i < products.size(); i++) {
-                if (products.get(i).getName().toLowerCase().equals(product.getName())) {
+                if (products.get(i).getName().toLowerCase().equals(product.getName().toLowerCase())) {
                     counter++;
                 }
             }
@@ -91,6 +91,10 @@ public class ProductBUS {
 
         //if not update product name, so just update normally
         return new MercedesDB(context).updateProductData(name, product);
+    }
+
+    public boolean updateProductWhenDeleteCategory(String categoryName) {
+        return new MercedesDB(context).updateProductWhenDeleteCategory(categoryName);
     }
 
     public boolean deleteProductData(String name) {

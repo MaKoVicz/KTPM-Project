@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
+import android.widget.Toast;
 
 import com.example.DTO.Product;
 import com.example.DTO.ProductCategory;
@@ -202,7 +203,7 @@ public class MercedesDB extends SQLiteOpenHelper {
         updateName = "'" + productCategory.getName() + "'";
         updateImgLink = "'" + productCategory.getImageURL() + "'";
 
-        String sqlCmd = "UPDATE Product SET Name = " + updateName + ", " + "Picture = " + updateImgLink
+        String sqlCmd = "UPDATE ProductCategory SET Name = " + updateName + ", " + "Picture = " + updateImgLink
                 + " WHERE Name = " + name;
 
         try {
@@ -224,6 +225,23 @@ public class MercedesDB extends SQLiteOpenHelper {
         try {
             db.execSQL(sqlCmd);
         } catch (Exception ex) {
+            result = false;
+        }
+
+        return result;
+    }
+
+    public boolean updateProductWhenDeleteCategory(String categoryName) {
+        categoryName = "'" + categoryName + "'";
+        SQLiteDatabase db = this.getWritableDatabase();
+        boolean result = true;
+
+        String sqlCmd = "UPDATE Product SET Category = 'None' WHERE Category = " + categoryName;
+
+        try {
+            db.execSQL(sqlCmd);
+        } catch (Exception ex) {
+            Toast.makeText(context, ex.getMessage(), Toast.LENGTH_SHORT).show();
             result = false;
         }
 

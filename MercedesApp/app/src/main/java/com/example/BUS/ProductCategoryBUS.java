@@ -57,7 +57,7 @@ public class ProductCategoryBUS {
 
             int counter = 0;
             for (int i = 0; i < productCategories.size(); i++) {
-                if (productCategories.get(i).getName().toLowerCase().equals(categoryData.getName())) {
+                if (productCategories.get(i).getName().toLowerCase().equals(categoryData.getName().toLowerCase())) {
                     counter++;
                 }
             }

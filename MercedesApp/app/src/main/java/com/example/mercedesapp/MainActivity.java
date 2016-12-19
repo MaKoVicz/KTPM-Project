@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.Adapters.NavListAdapter;
 import com.example.DTO.CurrentLoginUser;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private List<NavItem> navListItems;
     private List<Fragment> listFragments;
     private ActionBarDrawerToggle actionBarDrawerToggle;
+    private TextView welcomeUserTextView;
     //endregion
 
     //region Override Method
@@ -49,9 +51,11 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout = (DrawerLayout) findViewById(R.id.nav_drawer_layout);
         navDrawerPane = (LinearLayout) findViewById(R.id.navDrawerPane);
         navList = (ListView) findViewById(R.id.navDrawerList);
+        welcomeUserTextView = (TextView) findViewById(R.id.userNameTextView);
 
         setupNavList();
         setupFragmentList();
+        setupWelcomeUserTextView();
         setListItemClickListener();
         setupNavDrawerButtonClick();
     }
@@ -95,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
         navListItems.add(new NavItem("Home", R.drawable.ic_vector_home));
         navListItems.add(new NavItem("About us", R.drawable.ic_vector_about));
         navListItems.add(new NavItem("Contact us", R.drawable.ic_vector_contact));
-        if (CurrentLoginUser.currentUser.getAdmin() == 1) {
+        if (CurrentLoginUser.getCurrentUser().getAdmin() == 1) {
             navListItems.add(new NavItem("Admin", R.drawable.ic_vector_admin));
         }
         navListItems.add(new NavItem("Logout", R.drawable.ic_vector_logout));
@@ -132,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
                     navList.setItemChecked(position, true);
                     drawerLayout.closeDrawer(navDrawerPane);
                 } else {
-                    if (position == 3 && CurrentLoginUser.currentUser.getAdmin() == 1) {
+                    if (position == 3 && CurrentLoginUser.getCurrentUser().getAdmin() == 1) {
                         gotoAdminFragment();
                         navList.setItemChecked(position, true);
                         drawerLayout.closeDrawer(navDrawerPane);
@@ -187,6 +191,10 @@ public class MainActivity extends AppCompatActivity {
         };
 
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
+    }
+
+    public void setupWelcomeUserTextView() {
+        welcomeUserTextView.setText(CurrentLoginUser.getCurrentUser().getName());
     }
     //endregion
 }

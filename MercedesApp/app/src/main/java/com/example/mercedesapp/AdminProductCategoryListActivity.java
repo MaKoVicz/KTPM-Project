@@ -17,6 +17,7 @@ import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.example.Adapters.AdminProductCategoryAdapter;
+import com.example.BUS.ProductBUS;
 import com.example.BUS.ProductCategoryBUS;
 import com.example.DTO.ProductCategory;
 
@@ -59,6 +60,7 @@ public class AdminProductCategoryListActivity extends AppCompatActivity {
         ProductCategory productCategory = (ProductCategory) adminProductCategoryAdapter.getItem(info.position);
 
         if (new ProductCategoryBUS(this).deleteProductCategoryData(productCategory.getName())) {
+            new ProductBUS(this).updateProductWhenDeleteCategory(productCategory.getName());
             Toast.makeText(this, "Delete Succeeded", Toast.LENGTH_SHORT).show();
             setupListView();
             adminProductCategoryAdapter.getFilter().filter(filterText);

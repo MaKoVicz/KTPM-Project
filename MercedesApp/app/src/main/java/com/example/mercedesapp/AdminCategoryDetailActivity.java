@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.BUS.ProductBUS;
 import com.example.BUS.ProductCategoryBUS;
 import com.example.DTO.ProductCategory;
 
@@ -116,12 +117,12 @@ public class AdminCategoryDetailActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (new ProductCategoryBUS(AdminCategoryDetailActivity.this).deleteProductCategoryData(categoryName)) {
+                            new ProductBUS(AdminCategoryDetailActivity.this).updateProductWhenDeleteCategory(categoryName);
                             Toast.makeText(AdminCategoryDetailActivity.this, "Delete Succeeded", Toast.LENGTH_SHORT).show();
                             returnToAdminCategoryList();
                         } else {
                             Toast.makeText(AdminCategoryDetailActivity.this, "Delete Failed", Toast.LENGTH_SHORT).show();
                         }
-
                     }
                 }).setNegativeButton("NO", new DialogInterface.OnClickListener() {
             @Override

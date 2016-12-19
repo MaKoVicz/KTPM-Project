@@ -81,8 +81,7 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        CurrentLoginUser.currentUser =
-                new UserBUS(this).getUserData(usernameEditText.getText().toString());
+        CurrentLoginUser.setCurrentUser(new UserBUS(this).getUserData(usernameEditText.getText().toString()));
 
         btnLogin.setEnabled(false);
         final ProgressDialog progressDiaglog = new ProgressDialog(this, R.style.AppTheme_Dark_Dialog);

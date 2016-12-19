@@ -151,10 +151,10 @@ public class ProductDetailActivity extends AppCompatActivity {
     public boolean addTestDriveRegisterData() {
         TestDrive testDriveData = new TestDrive();
 
-        testDriveData.setName(CurrentLoginUser.currentUser.getName());
-        testDriveData.setAddress(CurrentLoginUser.currentUser.getAddress());
-        testDriveData.setPhone(CurrentLoginUser.currentUser.getPhone());
-        testDriveData.setEmail(CurrentLoginUser.currentUser.getEmail());
+        testDriveData.setName(CurrentLoginUser.getCurrentUser().getName());
+        testDriveData.setAddress(CurrentLoginUser.getCurrentUser().getAddress());
+        testDriveData.setPhone(CurrentLoginUser.getCurrentUser().getPhone());
+        testDriveData.setEmail(CurrentLoginUser.getCurrentUser().getEmail());
         testDriveData.setRegisterDate(returnCurrentDate());
         testDriveData.setTestProduct(product.getName());
 
