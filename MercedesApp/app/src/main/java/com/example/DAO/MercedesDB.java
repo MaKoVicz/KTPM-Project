@@ -122,22 +122,6 @@ public class MercedesDB extends SQLiteOpenHelper {
     //endregion
 
     //region Queries
-    public HashMap<String, String> mapping() {
-        // This HashMap is used to map table fields to Custom Suggestion fields
-        HashMap<String, String> mAliasMap = new HashMap<String, String>();
-
-        // Unique id for the each Suggestions ( Mandatory )
-        mAliasMap.put("_ID", "Name" + " as " + "_id");
-
-        // Text for Suggestions ( Mandatory )
-        mAliasMap.put(SearchManager.SUGGEST_COLUMN_TEXT_1, "Name" + " as " + SearchManager.SUGGEST_COLUMN_TEXT_1);
-
-        // This value will be appended to the Intent data on selecting an item from Search result or Suggestions ( Optional )
-        mAliasMap.put(SearchManager.SUGGEST_COLUMN_INTENT_DATA_ID, "Name" + " as " + SearchManager.SUGGEST_COLUMN_INTENT_DATA_ID);
-
-        return mAliasMap;
-    }
-
     public ArrayList<ProductCategory> getProductCategoryData() {
         SQLiteDatabase db = this.getWritableDatabase();
         String SqlCmd = "SELECT * FROM ProductCategory";
@@ -442,42 +426,6 @@ public class MercedesDB extends SQLiteOpenHelper {
 
         cursor.close();
         return testDrive;
-    }
-
-    public Cursor getProductDetailDataForSearching(String id) {
-        SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
-
-        queryBuilder.setTables("Product");
-        Cursor c = queryBuilder.query(this.getReadableDatabase(),
-                new String[]{"Name", "Color", "Price", "Category", "Description", "Pic1"},
-                "Name = ?", new String[]{id}, null, null, null, "1"
-        );
-
-        return c;
-    }
-
-    public Cursor getProductDataForSearching(String[] selectionArgs) {
-        String selection = "Name" + " like ? ";
-
-        if (selectionArgs != null) {
-            selectionArgs[0] = "%" + selectionArgs[0] + "%";
-        }
-
-        SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
-        queryBuilder.setProjectionMap(mapping());
-        queryBuilder.setTables("Product");
-
-        Cursor c = queryBuilder.query(this.getReadableDatabase(),
-                new String[]{"_ID",
-                        SearchManager.SUGGEST_COLUMN_TEXT_1,
-                        SearchManager.SUGGEST_COLUMN_INTENT_DATA_ID},
-                selection,
-                selectionArgs,
-                null,
-                null,
-                "Name" + " asc ", "10"
-        );
-        return c;
     }
 
     public int getUserEmailForSignUpCheck(String email) {

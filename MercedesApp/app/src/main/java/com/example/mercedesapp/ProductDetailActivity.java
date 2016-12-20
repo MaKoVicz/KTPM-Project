@@ -55,7 +55,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                returnToProductList();
+                returnToPreviousActivity();
                 return true;
         }
 
@@ -64,7 +64,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        returnToProductList();
+        returnToPreviousActivity();
     }
     //endregion
 
@@ -80,7 +80,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     public void getExtras() {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            String name = extras.getString("ProductName");
+            String name = extras.getString("productName");
             getProductData(name);
         }
     }
@@ -166,6 +166,21 @@ public class ProductDetailActivity extends AppCompatActivity {
         SimpleDateFormat ft = new SimpleDateFormat("dd.MM.yyyy 'at' hh:mm:ss a");
 
         return ft.format(dNow);
+    }
+
+    public void returnToPreviousActivity() {
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            boolean isFromProductSearchActivity = extras.getBoolean("ProductSearchActivity");
+
+            if(isFromProductSearchActivity) {
+                Intent intent = new Intent(ProductDetailActivity.this, ProductSearchActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            } else {
+                returnToProductList();
+            }
+        }
     }
     //endregion
 }

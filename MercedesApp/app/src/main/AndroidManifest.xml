@@ -45,12 +45,7 @@
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait">
-
-            <meta-data
-                android:name="android.app.default_searchable"
-                android:value=".ProductSearchableActivity" />
-        </activity>
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".ProductListActivity"
@@ -74,7 +69,7 @@
 
             <meta-data
                 android:name="android.app.searchable"
-                android:resource="@xml/admin_searchable"></meta-data>
+                android:resource="@xml/admin_searchable" />
         </activity>
 
         <activity
@@ -89,7 +84,7 @@
 
             <meta-data
                 android:name="android.app.searchable"
-                android:resource="@xml/admin_searchable"></meta-data>
+                android:resource="@xml/admin_searchable" />
         </activity>
 
         <activity
@@ -130,27 +125,14 @@
             android:windowSoftInputMode="stateHidden" />
 
         <activity
-            android:name=".ProductSearchableActivity"
+            android:name=".ProductSearchActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
-            </intent-filter>
+
             <meta-data
                 android:name="android.app.searchable"
-                android:resource="@xml/searchable" />
+                android:resource="@xml/admin_searchable" />
         </activity>
-
-        <activity
-            android:name=".ProductSearchResultActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
-
-        <provider
-            android:name="com.example.ContentProviders.ProductContentProvider"
-            android:authorities="com.example.ContentProviders.ProductContentProvider"
-            android:exported="true" />
 
     </application>
 

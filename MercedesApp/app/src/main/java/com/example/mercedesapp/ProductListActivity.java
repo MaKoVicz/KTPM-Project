@@ -71,7 +71,8 @@ public class ProductListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(ProductListActivity.this, ProductDetailActivity.class);
-                intent.putExtra("ProductName", products.get(position).getName());
+                intent.putExtra("ProductSearchActivity", false);
+                intent.putExtra("productName", products.get(position).getName());
                 startActivity(intent);
             }
         });

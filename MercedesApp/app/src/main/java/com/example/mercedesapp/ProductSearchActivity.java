@@ -7,56 +7,53 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
-import android.widget.Toast;
 
-import com.example.Adapters.AdminProductAdapter;
+import com.example.Adapters.ProductSearchAdapter;
 import com.example.BUS.ProductBUS;
 import com.example.DTO.Product;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdminProductListActivity extends AppCompatActivity {
+public class ProductSearchActivity extends AppCompatActivity {
 
     //region Initiation
     private ListView productListView;
     private List<Product> productList;
     private SearchView searchView;
+    private ProductSearchAdapter productSearchAdapter;
     private String filterText;
-    private AdminProductAdapter adminProductAdapter;
     //endregion
 
     //region Override Methods
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_product_list);
+        setContentView(R.layout.activity_product_list);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        productListView = (ListView) findViewById(R.id.admin_product_list);
+        getSupportActionBar().setTitle("Search product's name");
+        productListView = (ListView) findViewById(R.id.productListView);
 
         setupListView();
         setOnListViewItemClick();
-        registerForContextMenu(productListView);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.product_list_menu, menu);
-
+        getMenuInflater().inflate(R.menu.client_list_menu, menu);
         final SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.btnSearchList));
-        searchView.setIconifiedByDefault(true);
+        //searchView.setIconifiedByDefault(false);
+        //searchView.setIconified(false);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setSubmitButtonEnabled(true);
 
-        setSearchViewOnFocusChangeListener();
         setSearchViewOnQueryTextListener();
         return true;
     }
@@ -66,9 +63,6 @@ public class AdminProductListActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 returnToMainActivity();
-                return true;
-            case R.id.btnAdd:
-                gotoAdminProductDetail("Add", "");
                 return true;
             case R.id.btnSearchList:
                 searchView.setIconifiedByDefault(false);
@@ -80,31 +74,6 @@ public class AdminProductListActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        if (v.getId() == R.id.admin_product_list) {
-            menu.add(Menu.NONE, 0, 0, "Delete");
-        }
-    }
-
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        Product product = (Product) adminProductAdapter.getItem(info.position);
-
-        if (new ProductBUS(this).deleteProductData(product.getName())) {
-            Toast.makeText(this, "Delete Succeeded", Toast.LENGTH_SHORT).show();
-            setupListView();
-            adminProductAdapter.getFilter().filter(filterText);
-        } else {
-            Toast.makeText(this, "Delete Failed", Toast.LENGTH_SHORT).show();
-            setupListView();
-            adminProductAdapter.getFilter().filter(filterText);
-        }
-
-        return true;
-    }
-
-    @Override
     public void onBackPressed() {
         returnToMainActivity();
     }
@@ -113,13 +82,13 @@ public class AdminProductListActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         setupListView();
-        adminProductAdapter.getFilter().filter(filterText);
+        productSearchAdapter.getFilter().filter(filterText);
     }
     //endregion
 
     //region Personal Methods
     public void returnToMainActivity() {
-        Intent intent = new Intent(AdminProductListActivity.this, MainActivity.class);
+        Intent intent = new Intent(ProductSearchActivity.this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
@@ -127,10 +96,9 @@ public class AdminProductListActivity extends AppCompatActivity {
     public void setupListView() {
         productList = new ArrayList<>();
         productList = new ProductBUS(this).getAllProductData();
-        adminProductAdapter =
-                new AdminProductAdapter(this, R.layout.admin_product_list_item, productList);
+        productSearchAdapter = new ProductSearchAdapter(this, R.layout.product_list_item, productList);
 
-        productListView.setAdapter(adminProductAdapter);
+        productListView.setAdapter(productSearchAdapter);
         productListView.setTextFilterEnabled(false);
     }
 
@@ -139,17 +107,13 @@ public class AdminProductListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Product product = (Product) parent.getAdapter().getItem(position);
-                gotoAdminProductDetail("Update", product.getName());
+                Intent intent = new Intent(ProductSearchActivity.this, ProductDetailActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("ProductSearchActivity", true);
+                intent.putExtra("productName", product.getName());
+                startActivity(intent);
             }
         });
-    }
-
-    public void gotoAdminProductDetail(String buttonQueryText, String productNameData) {
-        Intent intent = new Intent(AdminProductListActivity.this, AdminProductDetailActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.putExtra("buttonQueryText", buttonQueryText);
-        intent.putExtra("productName", productNameData);
-        startActivity(intent);
     }
 
     public void setSearchViewOnQueryTextListener() {
@@ -161,22 +125,9 @@ public class AdminProductListActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                adminProductAdapter.getFilter().filter(newText);
+                productSearchAdapter.getFilter().filter(newText);
                 filterText = newText;
                 return true;
-            }
-        });
-    }
-
-    public void setSearchViewOnFocusChangeListener() {
-        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    searchView.setQuery("", false);
-                    searchView.setIconifiedByDefault(true);
-                    searchView.setIconified(true);
-                }
             }
         });
     }

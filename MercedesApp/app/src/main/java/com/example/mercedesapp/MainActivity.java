@@ -79,7 +79,9 @@ public class MainActivity extends AppCompatActivity {
         } else {
             switch (item.getItemId()) {
                 case R.id.btnSearchProduct:
-                    onSearchRequested();
+                    Intent intent = new Intent(MainActivity.this, ProductSearchActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
                     break;
             }
         }
