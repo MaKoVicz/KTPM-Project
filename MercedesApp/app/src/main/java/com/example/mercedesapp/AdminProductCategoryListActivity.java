@@ -100,6 +100,7 @@ public class AdminProductCategoryListActivity extends AppCompatActivity {
             case R.id.btnSearchList:
                 searchView.setIconifiedByDefault(false);
                 searchView.setIconified(false);
+                Toast.makeText(this, "Search by category name", Toast.LENGTH_SHORT).show();
                 return true;
         }
 

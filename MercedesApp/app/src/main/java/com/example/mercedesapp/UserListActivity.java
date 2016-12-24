@@ -52,7 +52,6 @@ public class UserListActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.client_list_menu, menu);
-
         final SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.btnSearchList));
         searchView.setIconifiedByDefault(false);
@@ -73,6 +72,7 @@ public class UserListActivity extends AppCompatActivity {
             case R.id.btnSearchList:
                 searchView.setIconifiedByDefault(false);
                 searchView.setIconified(false);
+                Toast.makeText(this, "Search by user name", Toast.LENGTH_SHORT).show();
                 return true;
         }
 

@@ -74,6 +74,7 @@ public class TestDriveListActivity extends AppCompatActivity {
             case R.id.btnSearchList:
                 searchView.setIconifiedByDefault(false);
                 searchView.setIconified(false);
+                Toast.makeText(this, "Search by user name", Toast.LENGTH_SHORT).show();
                 return true;
         }
 

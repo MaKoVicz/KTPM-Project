@@ -5,5 +5,5 @@
         android1:id="@+id/btnSearchProduct"
         android1:icon="@drawable/ic_vector_search"
         android1:title="Search"
-        android:showAsAction="always|collapseActionView"/>
+        android:showAsAction="always|collapseActionView" />
 </menu>

@@ -52,7 +52,7 @@ public class AdminProductListActivity extends AppCompatActivity {
 
         final SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.btnSearchList));
-        searchView.setIconifiedByDefault(true);
+        searchView.setIconifiedByDefault(false);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setSubmitButtonEnabled(true);
 
@@ -73,6 +73,7 @@ public class AdminProductListActivity extends AppCompatActivity {
             case R.id.btnSearchList:
                 searchView.setIconifiedByDefault(false);
                 searchView.setIconified(false);
+                Toast.makeText(this, "Search by product name", Toast.LENGTH_SHORT).show();
                 return true;
         }
 

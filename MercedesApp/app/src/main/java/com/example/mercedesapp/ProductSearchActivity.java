@@ -49,8 +49,24 @@ public class ProductSearchActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.client_list_menu, menu);
         final SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.btnSearchList));
-        //searchView.setIconifiedByDefault(false);
-        //searchView.setIconified(false);
+
+        MenuItem searchItem = menu.findItem(R.id.btnSearchList);
+        searchItem.expandActionView();
+        MenuItemCompat.setOnActionExpandListener(searchItem, new MenuItemCompat.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                return false;
+            }
+
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                returnToMainActivity();
+                return true;
+            }
+        });
+
+        searchView.setIconifiedByDefault(false);
+        searchView.setIconified(false);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setSubmitButtonEnabled(true);
 

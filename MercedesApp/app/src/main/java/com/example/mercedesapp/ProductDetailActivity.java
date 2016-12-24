@@ -173,7 +173,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         if (extras != null) {
             boolean isFromProductSearchActivity = extras.getBoolean("ProductSearchActivity");
 
-            if(isFromProductSearchActivity) {
+            if (isFromProductSearchActivity) {
                 Intent intent = new Intent(ProductDetailActivity.this, ProductSearchActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
