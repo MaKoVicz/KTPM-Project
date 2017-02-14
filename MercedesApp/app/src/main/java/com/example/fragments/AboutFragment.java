@@ -58,17 +58,17 @@ public class AboutFragment extends Fragment {
 
     public void setImgSrc() {
         Picasso.with(getActivity())
-                .load("https://drive.google.com/uc?export=download&id=0B_kv1Bk5yRXdcno1SmtOX01pakU")
+                .load("https://drive.google.com/uc?export=download&id=0B8iFt0aXRm_DMnNDWjBMUk1nck0")
                 .placeholder(R.drawable.ic_vector_image_loading)
                 .into(introImg1);
 
         Picasso.with(getActivity())
-                .load("https://drive.google.com/uc?export=download&id=0B_kv1Bk5yRXdbFlYR3lQTWNtTzA")
+                .load("https://drive.google.com/uc?export=download&id=0B8iFt0aXRm_DN200QV9zS2xjOTQ")
                 .placeholder(R.drawable.ic_vector_image_loading)
                 .into(introImg2);
 
         Picasso.with(getActivity())
-                .load("https://drive.google.com/uc?export=download&id=0B_kv1Bk5yRXdMzJKcDJCb1RHZ1k")
+                .load("https://drive.google.com/uc?export=download&id=0B8iFt0aXRm_DSHVHQndCdFRaaEU")
                 .placeholder(R.drawable.ic_vector_image_loading)
                 .into(introImg3);
     }

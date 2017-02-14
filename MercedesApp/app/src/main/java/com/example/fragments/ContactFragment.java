@@ -55,17 +55,17 @@ public class ContactFragment extends Fragment {
 
     public void setContactIntroImg() {
         Picasso.with(getActivity())
-                .load("https://drive.google.com/uc?export=download&id=0B_kv1Bk5yRXdY3pjQ3Zsc1lIbHc")
+                .load("https://drive.google.com/uc?export=download&id=0B8iFt0aXRm_DMnNDWjBMUk1nck0")
                 .placeholder(R.drawable.ic_vector_image_loading)
                 .into(contactImg);
 
         Picasso.with(getActivity())
-                .load("https://drive.google.com/uc?export=download&id=0B_kv1Bk5yRXdLVBZOWVEY3VzMTA")
+                .load("https://drive.google.com/uc?export=download&id=0B8iFt0aXRm_DN1VpTjVQQW9PNUk")
                 .placeholder(R.drawable.ic_vector_image_loading)
                 .into(hanoiAddressImg);
 
         Picasso.with(getActivity())
-                .load("https://drive.google.com/uc?export=download&id=0B_kv1Bk5yRXdOWkxSjZaLXBfdE0")
+                .load("https://drive.google.com/uc?export=download&id=0B8iFt0aXRm_DcHM1UC1Ia1B3U2c")
                 .placeholder(R.drawable.ic_vector_image_loading)
                 .into(hcmAddressImg);
     }
